@@ -13,3 +13,10 @@ report/*.blg
 es678_latex_source.zip
 history/2026-11-12_local_smoke_run/run.log
 report/paper.pdf
+REVISION_AUDIT.md
+VIVA_NOTES.md
+history/2026-11-14_paper_v2/REVISION_AUDIT.md
+history/2026-11-14_paper_v3/REVISION_AUDIT.md
+history/2026-11-14_paper_v3/VIVA_NOTES.md
+history/2026-11-12_kaggle_run1/paper_v1.tex
+history/2026-11-12_kaggle_run1/paper_v1.pdf

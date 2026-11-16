@@ -6,7 +6,7 @@ UCI HAR training partition (21 participants). An intermediate **segment-grouped 
 logistic regression, an RBF SVM and a random forest, each with a fixed configuration. A gravity-feature ablation and a held-out
 permutation check are supporting diagnostics. The final model is chosen with participant-grouped tuning only. A **separate, guarded
 final stage** scores it on the official test set. That partition had already been scored in earlier iterations, so its result is
-only a supplementary descriptive check (see `REVISION_AUDIT.md`).
+only a supplementary descriptive check (see the test-set access note in the paper).
 
 ## Dataset and attribution
 Reyes-Ortiz, J., Anguita, D., Ghio, A., Oneto, L., & Parra, X. (2013). *Human Activity Recognition Using
@@ -56,7 +56,7 @@ split into five shards (`kaggle_entry.py <parts>`):
 1. `validation,diagnostic,tune_fast`
 2. `ablation`
 3. `tune_rf`
-4. `tune_fast` again, after the SVM grid was extended (see `REVISION_AUDIT.md`)
+4. `tune_fast` again, after the SVM grid was extended (the first grid is kept in `history/2026-11-12_svm_tuning_round1/`)
 5. `tune_rf2`, the bounded RF grid extension (after the paper-v2 test run; training partition only)
 
 Their outputs were merged into `results/`, and `summarize_repeated.py`, `select_model.py` and `make_figures.py`
@@ -95,7 +95,7 @@ Two kinds of spread are reported, and neither is a confidence interval:
 - `logs/`: `run_metadata_<stage>.json` (Python, package versions, CPU, seeds, config, timings) and Kaggle logs
 
 `history/` keeps:
-- the earlier runs that scored the test set (the local smoke test, and the first Kaggle run with its v1 paper), which are disclosed in the paper;
+- the earlier runs that scored the test set (the local smoke test and the first Kaggle run), which are disclosed in the paper;
 - `2026-11-14_paper_v2/` and `2026-11-14_paper_v3/`, full copies of papers v2 and v3 and their project state.
 
  `history/2026-11-12_svm_tuning_round1/` keeps the first SVM grid, whose optimum sat on a
@@ -103,7 +103,6 @@ corner of the grid.
 
 ## Paper
 `report/paper.tex` (built to `report/paper.pdf`; the submission copy is `report/paper_vfinal.pdf`) uses the official ES 678 starter (`neurips_2026.sty`, unmodified; letter size, ≤ 4 pages).
-`VIVA_NOTES.md` lists points to prepare.
 
 ## Tests
 `pytest tests/` checks:
