@@ -26,7 +26,9 @@ bash scripts/build_paper.sh                     # 3) figures + verification + re
 ```
 `run_all.sh` never scores the test set. `run_final_test.sh` writes `results/metrics/freeze_manifest.json`, which holds the
 SHA-256 of every source file, the config and `selected_model.json`, before scoring. It refuses to run again once
-`test_metrics.json` exists, unless you set `HAR_ALLOW_TEST_RERUN=1`.
+`test_metrics.json` exists, unless you set `HAR_ALLOW_TEST_RERUN=1`. Because this repository already contains
+`results/metrics/test_metrics.json`, reproducing the final stage from a fresh clone needs
+`HAR_ALLOW_TEST_RERUN=1 bash scripts/run_final_test.sh`.
 
 | Variable | Default | Purpose |
 |---|---|---|
@@ -48,7 +50,9 @@ SHA-256 of every source file, the config and `selected_model.json`, before scori
 
 Running everything in one kernel takes about 4.5 h; sharding brings the wall-clock time down to about 2.2 h.
 
-The canonical development run used four Kaggle kernels (`kaggle_entry.py <parts>`):
+**Note on Kaggle.** Kaggle is not needed for reproduction: the steps above run everything on a local machine.
+For the record, the canonical development run was done on Kaggle CPU kernels only to get extra compute time. It was
+split into five shards (`kaggle_entry.py <parts>`):
 1. `validation,diagnostic,tune_fast`
 2. `ablation`
 3. `tune_rf`
