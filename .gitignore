@@ -11,3 +11,5 @@ report/*.out
 report/*.bbl
 report/*.blg
 es678_latex_source.zip
+history/2026-11-12_local_smoke_run/run.log
+report/paper.pdf
