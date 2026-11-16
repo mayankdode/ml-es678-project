@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+.pytest_cache/
+data/raw/
+data/processed/
+**/results/models/
+.kaggle_build/
+report/*.aux
+report/*.log
+report/*.out
+report/*.bbl
+report/*.blg
+es678_latex_source.zip

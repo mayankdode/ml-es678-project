@@ -1,0 +1,33 @@
+{
+  "channels": [
+    "body_acc_x",
+    "body_acc_y",
+    "body_acc_z",
+    "body_gyro_x",
+    "body_gyro_y",
+    "body_gyro_z",
+    "total_acc_x",
+    "total_acc_y",
+    "total_acc_z"
+  ],
+  "tolerance": 0.0,
+  "n_windows": 7352,
+  "n_consecutive_pairs": 7351,
+  "n_overlap_links": 6752,
+  "n_links_within_same_subject_and_activity": 6752,
+  "n_consecutive_pairs_same_subject_and_activity": 7072,
+  "n_non_adjacent_matches": 0,
+  "n_segments": 600,
+  "segment_length": {
+    "min": 1,
+    "median": 12.0,
+    "max": 29,
+    "mean": 12.253333333333334
+  },
+  "segments_per_subject_activity": {
+    "min": 4,
+    "median": 4.0,
+    "max": 8
+  },
+  "conclusion": "Row order preserves recording order: every exact match links row i to row i+1 inside one participant and activity, and no window matches a non-adjacent row."
+}

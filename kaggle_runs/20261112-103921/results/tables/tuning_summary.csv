@@ -1,0 +1,4 @@
+model,best_params,best_macro_f1_mean,best_macro_f1_sd,n_candidates
+LogReg,{'clf__C': 10.0},0.9270428890906857,0.03713269814778102,3
+SVM_RBF,"{'clf__C': 10.0, 'clf__gamma': 'scale'}",0.924755187564674,0.023778646774229455,6
+RandomForest,"{'clf__max_features': 'sqrt', 'clf__min_samples_leaf': 4, 'clf__n_estimators': 300}",0.90772752020433,0.03909999926421624,12

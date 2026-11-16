@@ -1,0 +1,28 @@
+{
+  "model": "SVM_RBF",
+  "search_space": {
+    "clf__C": [
+      0.1,
+      1.0,
+      10.0,
+      100.0,
+      1000.0
+    ],
+    "clf__gamma": [
+      "scale",
+      0.0001,
+      0.0005,
+      0.005,
+      0.01
+    ]
+  },
+  "best_params": {
+    "clf__C": 100.0,
+    "clf__gamma": 0.0005
+  },
+  "best_macro_f1_mean": 0.9313374113629619,
+  "best_macro_f1_sd": 0.025430340807842927,
+  "n_candidates": 25,
+  "at_grid_boundary": [],
+  "cv": "StratifiedGroupKFold(n_splits=5, shuffle=True, random_state=42)"
+}

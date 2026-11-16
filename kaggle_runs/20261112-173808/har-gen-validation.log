@@ -1,0 +1,64 @@
+[{"stream_name":"stdout","time":1.216075153,"data":"kaggle_run: /usr/bin/python3 -u kaggle_entry.py validation,diagnostic,tune_fast\n"}
+,{"stream_name":"stdout","time":5.656786982,"data":"downloading https://archive.ics.uci.edu/static/public/240/human+activity+recognition+using+smartphones.zip\n"}
+,{"stream_name":"stdout","time":12.070667989,"data":"extracted to /tmp/har_data/UCI HAR Dataset\n"}
+,{"stream_name":"stdout","time":22.267178766,"data":"..........                                                               [100%]\n"}
+,{"stream_name":"stdout","time":22.267217087,"data":"10 passed in 6.31s\n"}
+,{"stream_name":"stdout","time":28.18597242,"data":"{'shapes': {'X_train': [7352, 561], 'X_test': [2947, 561], 'y_train': 7352, 'y_test': 2947, 'subject_train': 7352, 'subject_test': 2947}, 'n_train_subjects': 21, 'n_test_subjects': 9, 'missing_values': {'train': 0, 'test': 0}, 'infinite_values': {'train': 0, 'test': 0}, 'duplicate_rows': {'train': 0, 'test': 0, 'train_vs_test': 0}, 'duplicate_feature_names': {'n_names_involved': 126, 'n_distinct': 42}, 'feature_range_train': {'min': -1.0, 'max': 1.0, 'frac_features_within_[-1,1]': 1.0, 'feature_sd_min': 0.040810524573263486, 'feature_sd_max': 0.7517328950472323, 'feature_mean_min': -0.9840589394636834, 'feature_mean_max': 0.8304335499895811}}\n"}
+,{"stream_name":"stdout","time":28.186008883,"data":"constant features: 0\n"}
+,{"stream_name":"stdout","time":28.18601294,"data":"data audit passed\n"}
+,{"stream_name":"stdout","time":28.186049707,"data":"[timing] data_audit: 4.1 s\n"}
+,{"stream_name":"stdout","time":33.962502926,"data":"{'tolerance': 0.0, 'n_windows': 7352, 'n_consecutive_pairs': 7351, 'n_overlap_links': 6752, 'n_links_within_same_subject_and_activity': 6752, 'n_consecutive_pairs_same_subject_and_activity': 7072, 'n_non_adjacent_matches': 0, 'n_segments': 600, 'segment_length': {'min': 1, 'median': 12.0, 'max': 29, 'mean': 12.253333333333334}, 'segments_per_subject_activity': {'min': 4, 'median': 4.0, 'max': 8}}\n"}
+,{"stream_name":"stdout","time":33.962534788,"data":"[timing] overlap_audit: 4.1 s\n"}
+,{"stream_name":"stderr","time":40.611058845,"data":"[Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.\n"}
+,{"stream_name":"stderr","time":56.289725186,"data":"[Parallel(n_jobs=-1)]: Done  10 tasks      | elapsed:   15.7s\n"}
+,{"stream_name":"stderr","time":400.342195571,"data":"[Parallel(n_jobs=-1)]: Done  64 tasks      | elapsed:  6.0min\n"}
+,{"stream_name":"stderr","time":871.564381349,"data":"[Parallel(n_jobs=-1)]: Done 154 tasks      | elapsed: 13.8min\n"}
+,{"stream_name":"stderr","time":1595.282243855,"data":"[Parallel(n_jobs=-1)]: Done 280 tasks      | elapsed: 25.9min\n"}
+,{"stream_name":"stderr","time":2506.704445564,"data":"[Parallel(n_jobs=-1)]: Done 442 tasks      | elapsed: 41.1min\n"}
+,{"stream_name":"stderr","time":3446.942963995,"data":"[Parallel(n_jobs=-1)]: Done 600 out of 600 | elapsed: 56.8min finished\n"}
+,{"stream_name":"stdout","time":3464.746856445,"data":"[full] repeat-level OOF macro-F1 across seeds\n"}
+,{"stream_name":"stdout","time":3464.746898871,"data":"                                    mean     std     min     max\n"}
+,{"stream_name":"stdout","time":3464.746904817,"data":"model        strategy                                           \n"}
+,{"stream_name":"stdout","time":3464.746909644,"data":"Dummy        participant_grouped  0.0535  0.0000  0.0535  0.0535\n"}
+,{"stream_name":"stdout","time":3464.746914421,"data":"             random_window        0.0535  0.0000  0.0535  0.0535\n"}
+,{"stream_name":"stdout","time":3464.746918999,"data":"             segment_grouped      0.0795  0.0053  0.0711  0.0902\n"}
+,{"stream_name":"stdout","time":3464.746923856,"data":"LogReg       participant_grouped  0.9308  0.0037  0.9258  0.9366\n"}
+,{"stream_name":"stdout","time":3464.746942995,"data":"             random_window        0.9856  0.0008  0.9844  0.9868\n"}
+,{"stream_name":"stdout","time":3464.746947192,"data":"             segment_grouped      0.9731  0.0017  0.9689  0.9753\n"}
+,{"stream_name":"stdout","time":3464.746951084,"data":"RandomForest participant_grouped  0.9096  0.0028  0.9041  0.9140\n"}
+,{"stream_name":"stdout","time":3464.746955576,"data":"             random_window        0.9813  0.0006  0.9803  0.9821\n"}
+,{"stream_name":"stdout","time":3464.746959537,"data":"             segment_grouped      0.9562  0.0031  0.9497  0.9602\n"}
+,{"stream_name":"stdout","time":3464.746963359,"data":"SVM_RBF      participant_grouped  0.9236  0.0040  0.9175  0.9298\n"}
+,{"stream_name":"stdout","time":3464.746967628,"data":"             random_window        0.9792  0.0003  0.9787  0.9797\n"}
+,{"stream_name":"stdout","time":3464.746971832,"data":"             segment_grouped      0.9664  0.0015  0.9632  0.9681\n"}
+,{"stream_name":"stdout","time":3464.778708724,"data":"[timing] repeated_validation: 3429.2 s\n"}
+,{"stream_name":"stdout","time":3795.415660071,"data":"                                           macro_f1  f1_SITTING  f1_STANDING\n"}
+,{"stream_name":"stdout","time":3795.415700336,"data":"strategy            model        permuted                                   \n"}
+,{"stream_name":"stdout","time":3795.415707729,"data":"participant_grouped LogReg       False       0.9279      0.9021       0.9028\n"}
+,{"stream_name":"stdout","time":3795.415713445,"data":"                                 True        0.6293      0.4783       0.5486\n"}
+,{"stream_name":"stdout","time":3795.415768876,"data":"                    RandomForest False       0.9089      0.8754       0.8864\n"}
+,{"stream_name":"stdout","time":3795.415776099,"data":"                                 True        0.5640      0.4141       0.4951\n"}
+,{"stream_name":"stdout","time":3795.415781243,"data":"                    SVM_RBF      False       0.9247      0.9028       0.9130\n"}
+,{"stream_name":"stdout","time":3795.415786255,"data":"                                 True        0.6455      0.4913       0.5836\n"}
+,{"stream_name":"stdout","time":3795.415791321,"data":"random_window       LogReg       False       0.9858      0.9580       0.9614\n"}
+,{"stream_name":"stdout","time":3795.415796462,"data":"                                 True        0.6779      0.5098       0.5665\n"}
+,{"stream_name":"stdout","time":3795.415801786,"data":"                    RandomForest False       0.9817      0.9633       0.9667\n"}
+,{"stream_name":"stdout","time":3795.415807,"data":"                                 True        0.6124      0.4462       0.5094\n"}
+,{"stream_name":"stdout","time":3795.415812017,"data":"                    SVM_RBF      False       0.9789      0.9394       0.9446\n"}
+,{"stream_name":"stdout","time":3795.415816722,"data":"                                 True        0.7040      0.5218       0.6037\n"}
+,{"stream_name":"stdout","time":3795.415821917,"data":"[timing] gravity_diagnostic: 328.4 s\n"}
+,{"stream_name":"stdout","time":3799.068723467,"data":"Fitting 5 folds for each of 5 candidates, totalling 25 fits\n"}
+,{"stream_name":"stdout","time":3824.375221388,"data":"[timing] tune_LogReg: 25.3 s\n"}
+,{"stream_name":"stdout","time":3824.382972279,"data":"LogReg: {'clf__C': 10.0} macroF1=0.9270\n"}
+,{"stream_name":"stdout","time":4121.710948765,"data":"Fitting 5 folds for each of 16 candidates, totalling 80 fits\n"}
+,{"stream_name":"stdout","time":4121.710987789,"data":"[timing] tune_SVM_RBF: 297.3 s\n"}
+,{"stream_name":"stdout","time":4121.71649147,"data":"SVM_RBF: {'clf__C': 100.0, 'clf__gamma': 0.0005} macroF1=0.9313\n"}
+,{"stream_name":"stdout","time":4121.717528005,"data":"[timing] tune_final_model: 324.1 s\n"}
+,{"stream_name":"stdout","time":4124.566436152,"data":"DONE\n"}
+,{"stream_name":"stderr","time":4127.591084655,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":4127.59112606,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":4127.952195454,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":4127.952226242,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":4129.035536532,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":4130.499369674,"data":"[NbConvertApp] Writing 275832 bytes to __results__.html\n"}
+]

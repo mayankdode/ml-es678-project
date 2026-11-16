@@ -1,0 +1,23 @@
+[{"stream_name":"stdout","time":1.342389583,"data":"kaggle_run: /usr/bin/python3 -u kaggle_entry.py tune_rf2\n"}
+,{"stream_name":"stdout","time":5.521420587,"data":"downloading https://archive.ics.uci.edu/static/public/240/human+activity+recognition+using+smartphones.zip\n"}
+,{"stream_name":"stdout","time":10.547941659,"data":"extracted to /tmp/har_data/UCI HAR Dataset\n"}
+,{"stream_name":"stdout","time":17.876825062,"data":"..........                                                               [100%]\n"}
+,{"stream_name":"stdout","time":17.876856452,"data":"10 passed in 3.91s\n"}
+,{"stream_name":"stdout","time":21.77959306,"data":"{'shapes': {'X_train': [7352, 561], 'X_test': [2947, 561], 'y_train': 7352, 'y_test': 2947, 'subject_train': 7352, 'subject_test': 2947}, 'n_train_subjects': 21, 'n_test_subjects': 9, 'missing_values': {'train': 0, 'test': 0}, 'infinite_values': {'train': 0, 'test': 0}, 'duplicate_rows': {'train': 0, 'test': 0, 'train_vs_test': 0}, 'duplicate_feature_names': {'n_names_involved': 126, 'n_distinct': 42}, 'feature_range_train': {'min': -1.0, 'max': 1.0, 'frac_features_within_[-1,1]': 1.0, 'feature_sd_min': 0.040810524573263486, 'feature_sd_max': 0.7517328950472323, 'feature_mean_min': -0.9840589394636834, 'feature_mean_max': 0.8304335499895811}}\n"}
+,{"stream_name":"stdout","time":21.77963611,"data":"constant features: 0\n"}
+,{"stream_name":"stdout","time":21.77964076,"data":"data audit passed\n"}
+,{"stream_name":"stdout","time":21.77964439,"data":"[timing] data_audit: 2.6 s\n"}
+,{"stream_name":"stdout","time":25.345567828,"data":"{'tolerance': 0.0, 'n_windows': 7352, 'n_consecutive_pairs': 7351, 'n_overlap_links': 6752, 'n_links_within_same_subject_and_activity': 6752, 'n_consecutive_pairs_same_subject_and_activity': 7072, 'n_non_adjacent_matches': 0, 'n_segments': 600, 'segment_length': {'min': 1, 'median': 12.0, 'max': 29, 'mean': 12.253333333333334}, 'segments_per_subject_activity': {'min': 4, 'median': 4.0, 'max': 8}}\n"}
+,{"stream_name":"stdout","time":25.345599028,"data":"[timing] overlap_audit: 2.4 s\n"}
+,{"stream_name":"stdout","time":27.301562687,"data":"Fitting 5 folds for each of 14 candidates, totalling 70 fits\n"}
+,{"stream_name":"stdout","time":519.587449076,"data":"[timing] tune_RandomForest_round2: 492.3 s\n"}
+,{"stream_name":"stdout","time":519.593185796,"data":"RandomForest_round2: {'clf__max_features': 'log2', 'clf__min_samples_leaf': 1, 'clf__n_estimators': 500} macroF1=0.9256\n"}
+,{"stream_name":"stdout","time":519.593715815,"data":"[timing] tune_final_model: 493.1 s\n"}
+,{"stream_name":"stdout","time":521.185014545,"data":"DONE\n"}
+,{"stream_name":"stderr","time":523.192178926,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":523.192265996,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":523.457220203,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":523.457247653,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":524.165015576,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":525.112616267,"data":"[NbConvertApp] Writing 275809 bytes to __results__.html\n"}
+]

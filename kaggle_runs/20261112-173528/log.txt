@@ -1,0 +1,38 @@
+kaggle_run: /usr/bin/python3 -u kaggle_entry.py ablation
+downloading https://archive.ics.uci.edu/static/public/240/human+activity+recognition+using+smartphones.zip
+extracted to /tmp/har_data/UCI HAR Dataset
+..........                                                               [100%]
+10 passed in 6.17s
+{'shapes': {'X_train': [7352, 561], 'X_test': [2947, 561], 'y_train': 7352, 'y_test': 2947, 'subject_train': 7352, 'subject_test': 2947}, 'n_train_subjects': 21, 'n_test_subjects': 9, 'missing_values': {'train': 0, 'test': 0}, 'infinite_values': {'train': 0, 'test': 0}, 'duplicate_rows': {'train': 0, 'test': 0, 'train_vs_test': 0}, 'duplicate_feature_names': {'n_names_involved': 126, 'n_distinct': 42}, 'feature_range_train': {'min': -1.0, 'max': 1.0, 'frac_features_within_[-1,1]': 1.0, 'feature_sd_min': 0.040810524573263486, 'feature_sd_max': 0.7517328950472323, 'feature_mean_min': -0.9840589394636834, 'feature_mean_max': 0.8304335499895811}}
+constant features: 0
+data audit passed
+[timing] data_audit: 3.9 s
+{'tolerance': 0.0, 'n_windows': 7352, 'n_consecutive_pairs': 7351, 'n_overlap_links': 6752, 'n_links_within_same_subject_and_activity': 6752, 'n_consecutive_pairs_same_subject_and_activity': 7072, 'n_non_adjacent_matches': 0, 'n_segments': 600, 'segment_length': {'min': 1, 'median': 12.0, 'max': 29, 'mean': 12.253333333333334}, 'segments_per_subject_activity': {'min': 4, 'median': 4.0, 'max': 8}}
+[timing] overlap_audit: 4.0 s
+[Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
+[Parallel(n_jobs=-1)]: Done  10 tasks      | elapsed:  1.6min
+[Parallel(n_jobs=-1)]: Done  64 tasks      | elapsed:  8.6min
+[Parallel(n_jobs=-1)]: Done 154 tasks      | elapsed: 21.5min
+[Parallel(n_jobs=-1)]: Done 280 tasks      | elapsed: 38.8min
+[Parallel(n_jobs=-1)]: Done 442 tasks      | elapsed: 61.5min
+[Parallel(n_jobs=-1)]: Done 450 out of 450 | elapsed: 63.3min finished
+[no_gravity] repeat-level OOF macro-F1 across seeds
+                                    mean     std     min     max
+model        strategy                                           
+LogReg       participant_grouped  0.8986  0.0036  0.8931  0.9065
+             random_window        0.9544  0.0011  0.9534  0.9563
+             segment_grouped      0.9391  0.0019  0.9369  0.9423
+RandomForest participant_grouped  0.8781  0.0038  0.8737  0.8848
+             random_window        0.9450  0.0011  0.9431  0.9466
+             segment_grouped      0.9151  0.0037  0.9064  0.9182
+SVM_RBF      participant_grouped  0.8719  0.0048  0.8643  0.8784
+             random_window        0.9410  0.0007  0.9400  0.9420
+             segment_grouped      0.9214  0.0019  0.9180  0.9240
+[timing] repeated_validation: 3817.5 s
+DONE
+/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+  cells[i][c] = re.sub('\\\\\|', '|', cell)
+/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+[NbConvertApp] Converting notebook __script__.ipynb to html
+[NbConvertApp] Writing 275809 bytes to __results__.html

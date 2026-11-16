@@ -1,0 +1,77 @@
+dataset already present at /home/mayank/claude_workspace/thundercloud-kaggle/har-generalization-project/data/raw/UCI HAR Dataset
+......                                                                   [100%]
+6 passed in 3.62s
+{'shapes': {'X_train': [7352, 561], 'X_test': [2947, 561], 'y_train': 7352, 'y_test': 2947, 'subject_train': 7352, 'subject_test': 2947}, 'n_train_subjects': 21, 'n_test_subjects': 9, 'missing_values': {'train': 0, 'test': 0}, 'infinite_values': {'train': 0, 'test': 0}, 'duplicate_rows': {'train': 0, 'test': 0, 'train_vs_test': 0}, 'duplicate_feature_names': {'n_names_involved': 126, 'n_distinct': 42}, 'feature_range_train': {'min': -1.0, 'max': 1.0, 'frac_features_within_[-1,1]': 1.0}}
+constant features: 0
+data audit passed
+[timing] data_audit: 4.6 s
+random_window        fold 0 Dummy        macroF1=0.0536
+random_window        fold 0 LogReg       macroF1=0.9831
+random_window        fold 0 SVM_RBF      macroF1=0.9785
+random_window        fold 0 RandomForest macroF1=0.9719
+random_window        fold 1 Dummy        macroF1=0.0536
+random_window        fold 1 LogReg       macroF1=0.9912
+random_window        fold 1 SVM_RBF      macroF1=0.9847
+random_window        fold 1 RandomForest macroF1=0.9805
+random_window        fold 2 Dummy        macroF1=0.0535
+random_window        fold 2 LogReg       macroF1=0.9842
+random_window        fold 2 SVM_RBF      macroF1=0.9738
+random_window        fold 2 RandomForest macroF1=0.9765
+random_window        fold 3 Dummy        macroF1=0.0535
+random_window        fold 3 LogReg       macroF1=0.9869
+random_window        fold 3 SVM_RBF      macroF1=0.9811
+random_window        fold 3 RandomForest macroF1=0.9806
+random_window        fold 4 Dummy        macroF1=0.0535
+random_window        fold 4 LogReg       macroF1=0.9837
+random_window        fold 4 SVM_RBF      macroF1=0.9765
+random_window        fold 4 RandomForest macroF1=0.9750
+participant_grouped  fold 0 Dummy        macroF1=0.0522
+participant_grouped  fold 0 LogReg       macroF1=0.9110
+participant_grouped  fold 0 SVM_RBF      macroF1=0.8975
+participant_grouped  fold 0 RandomForest macroF1=0.8753
+participant_grouped  fold 1 Dummy        macroF1=0.0530
+participant_grouped  fold 1 LogReg       macroF1=0.9686
+participant_grouped  fold 1 SVM_RBF      macroF1=0.9509
+participant_grouped  fold 1 RandomForest macroF1=0.9538
+participant_grouped  fold 2 Dummy        macroF1=0.0561
+participant_grouped  fold 2 LogReg       macroF1=0.9344
+participant_grouped  fold 2 SVM_RBF      macroF1=0.9175
+participant_grouped  fold 2 RandomForest macroF1=0.8861
+participant_grouped  fold 3 Dummy        macroF1=0.0534
+participant_grouped  fold 3 LogReg       macroF1=0.8667
+participant_grouped  fold 3 SVM_RBF      macroF1=0.9017
+participant_grouped  fold 3 RandomForest macroF1=0.8905
+participant_grouped  fold 4 Dummy        macroF1=0.0527
+participant_grouped  fold 4 LogReg       macroF1=0.9501
+participant_grouped  fold 4 SVM_RBF      macroF1=0.9501
+participant_grouped  fold 4 RandomForest macroF1=0.9354
+       model  random_macro_f1_mean  random_macro_f1_sd  grouped_macro_f1_mean  grouped_macro_f1_sd  gap_macro_f1  gap_accuracy  gap_balanced_accuracy
+       Dummy                0.0535              0.0001                 0.0535               0.0015        0.0000        0.0001                 0.0000
+      LogReg                0.9858              0.0034                 0.9262               0.0394        0.0596        0.0579                 0.0601
+     SVM_RBF                0.9789              0.0042                 0.9235               0.0257        0.0554        0.0519                 0.0542
+RandomForest                0.9769              0.0037                 0.9082               0.0343        0.0687        0.0651                 0.0675
+[timing] validation_experiments: 162.6 s
+Fitting 5 folds for each of 1 candidates, totalling 5 fits
+[timing] tune_LogReg: 80.7 s
+LogReg: {'clf__C': 1.0} macroF1=0.9262
+Fitting 5 folds for each of 1 candidates, totalling 5 fits
+[timing] tune_SVM_RBF: 49.2 s
+SVM_RBF: {'clf__C': 1.0, 'clf__gamma': 'scale'} macroF1=0.9235
+Fitting 5 folds for each of 1 candidates, totalling 5 fits
+[timing] tune_RandomForest: 33.3 s
+RandomForest: {'clf__max_features': 'sqrt', 'clf__min_samples_leaf': 1, 'clf__n_estimators': 20} macroF1=0.9082
+selected: LogReg {'C': 1.0, 'solver': 'lbfgs', 'max_iter': 3000}
+[timing] tune_final_model: 169.7 s
+official test: macroF1=0.9550 acc=0.9552 bal_acc=0.9538
+[timing] final_evaluation: 22.3 s
+              true        predicted  count  pct_of_true_class
+           SITTING         STANDING     57              11.61
+  WALKING_UPSTAIRS          WALKING     23               4.88
+WALKING_DOWNSTAIRS WALKING_UPSTAIRS     19               4.52
+          STANDING          SITTING     14               2.63
+WALKING_DOWNSTAIRS          WALKING      6               1.43
+{'n_errors': 132, 'n_test': 2947, 'static->static': 76, 'dynamic->dynamic': 52, 'static->dynamic': 2, 'dynamic->static': 2}
+[timing] error_analysis: 0.3 s
+figures -> /tmp/claude-1001/-home-mayank-claude-workspace-thundercloud-kaggle/d94f887e-9004-42bb-ba5a-d979fb165cd3/scratchpad/smoke/figures
+[timing] make_figures: 10.7 s
+DONE

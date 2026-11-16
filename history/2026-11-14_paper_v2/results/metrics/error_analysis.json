@@ -1,0 +1,49 @@
+{
+  "top_confusions": [
+    {
+      "true": "SITTING",
+      "predicted": "STANDING",
+      "count": 48,
+      "pct_of_true_class": 9.775967413441956
+    },
+    {
+      "true": "WALKING_DOWNSTAIRS",
+      "predicted": "WALKING_UPSTAIRS",
+      "count": 22,
+      "pct_of_true_class": 5.238095238095238
+    },
+    {
+      "true": "WALKING_UPSTAIRS",
+      "predicted": "WALKING",
+      "count": 15,
+      "pct_of_true_class": 3.1847133757961785
+    },
+    {
+      "true": "STANDING",
+      "predicted": "SITTING",
+      "count": 14,
+      "pct_of_true_class": 2.6315789473684212
+    },
+    {
+      "true": "WALKING_DOWNSTAIRS",
+      "predicted": "WALKING",
+      "count": 6,
+      "pct_of_true_class": 1.4285714285714286
+    }
+  ],
+  "error_breakdown_static_dynamic": {
+    "n_errors": 114,
+    "n_test": 2947,
+    "static->static": 62,
+    "dynamic->dynamic": 51,
+    "static->dynamic": 1
+  },
+  "per_subject_macro_f1": {
+    "min": 0.9071762580144327,
+    "median": 0.9683300062979207,
+    "max": 0.9951335606706451
+  },
+  "selected_grouped_cv_macro_f1": 0.9313374113629619,
+  "test_macro_f1": 0.960806411105645,
+  "test_minus_grouped_cv": 0.029468999742683133
+}

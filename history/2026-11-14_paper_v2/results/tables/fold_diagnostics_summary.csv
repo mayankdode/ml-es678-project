@@ -1,0 +1,4 @@
+strategy,n_val_min,n_val_max,n_val_subjects_min,n_val_subjects_max,frac_overlap_neighbour_mean,frac_overlap_neighbour_min,frac_subject_activity_in_train_mean,frac_subject_activity_in_train_min,all_classes_in_every_val_fold,fallback_used
+participant_grouped,1249,1874,4,5,0.0,0.0,0.0,0.0,True,False
+random_window,1470,1471,21,21,0.9356369908942503,0.919102651257648,1.0,1.0,True,False
+segment_grouped,1394,1568,21,21,0.0,0.0,0.9937958107357872,0.94187675070028,True,False

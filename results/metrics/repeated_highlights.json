@@ -1,0 +1,44 @@
+{
+  "rf_gap_largest_in_n_seeds": 10,
+  "n_seeds": 10,
+  "gap_macro_f1_random_minus_participant": {
+    "Dummy": {
+      "mean": 0.0,
+      "sd": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "n_positive": 0
+    },
+    "LogReg": {
+      "mean": 0.054775790333354134,
+      "sd": 0.003844162321671419,
+      "min": 0.04964955348909639,
+      "max": 0.060993759784682355,
+      "n_positive": 10
+    },
+    "RandomForest": {
+      "mean": 0.07178387173031361,
+      "sd": 0.002735098663222,
+      "min": 0.0672113610603754,
+      "max": 0.07619787915193943,
+      "n_positive": 10
+    },
+    "SVM_RBF": {
+      "mean": 0.05560462608502041,
+      "sd": 0.004070830055290477,
+      "min": 0.04952854581791888,
+      "max": 0.06201968465947583,
+      "n_positive": 10
+    }
+  },
+  "grouped_wins": {
+    "LogReg": 10,
+    "SVM_RBF": 0,
+    "RandomForest": 0
+  },
+  "random_wins": {
+    "LogReg": 10,
+    "SVM_RBF": 0,
+    "RandomForest": 0
+  }
+}

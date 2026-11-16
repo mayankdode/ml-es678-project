@@ -1,0 +1,29 @@
+{
+  "splitters": {
+    "random_window": "StratifiedKFold(n_splits=5, shuffle=True, random_state=42)",
+    "participant_grouped": "StratifiedGroupKFold(n_splits=5, shuffle=True, random_state=42)"
+  },
+  "fixed_configs": {
+    "Dummy": {
+      "strategy": "most_frequent"
+    },
+    "LogReg": {
+      "C": 1.0,
+      "solver": "lbfgs",
+      "max_iter": 3000
+    },
+    "SVM_RBF": {
+      "kernel": "rbf",
+      "C": 1.0,
+      "gamma": "scale"
+    },
+    "RandomForest": {
+      "n_estimators": 20,
+      "max_features": "sqrt",
+      "min_samples_leaf": 1,
+      "random_state": 42,
+      "n_jobs": -1
+    }
+  },
+  "sd_note": "SD is the sample standard deviation (ddof=1) across 5 folds: fold-to-fold variability, not a CI."
+}

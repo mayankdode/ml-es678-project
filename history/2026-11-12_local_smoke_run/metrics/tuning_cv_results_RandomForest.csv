@@ -1,0 +1,2 @@
+mean_fit_time,std_fit_time,mean_score_time,std_score_time,params,split0_test_score,split1_test_score,split2_test_score,split3_test_score,split4_test_score,mean_test_score,std_test_score,rank_test_score
+6.599972200393677,0.31674229354430844,0.044663619995117185,0.0488785494253208,"{'clf__max_features': 'sqrt', 'clf__min_samples_leaf': 1, 'clf__n_estimators': 20}",0.8752760554684748,0.953836086067431,0.8861465143790813,0.890538983711608,0.9354178724285812,0.9082431024110352,0.03067803608410802,1

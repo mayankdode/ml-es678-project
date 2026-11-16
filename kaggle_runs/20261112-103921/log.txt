@@ -1,0 +1,85 @@
+kaggle_run: /usr/bin/python3 -u kaggle_entry.py
+downloading https://archive.ics.uci.edu/static/public/240/human+activity+recognition+using+smartphones.zip
+extracted to /tmp/har_data/UCI HAR Dataset
+......                                                                   [100%]
+6 passed in 3.20s
+{'shapes': {'X_train': [7352, 561], 'X_test': [2947, 561], 'y_train': 7352, 'y_test': 2947, 'subject_train': 7352, 'subject_test': 2947}, 'n_train_subjects': 21, 'n_test_subjects': 9, 'missing_values': {'train': 0, 'test': 0}, 'infinite_values': {'train': 0, 'test': 0}, 'duplicate_rows': {'train': 0, 'test': 0, 'train_vs_test': 0}, 'duplicate_feature_names': {'n_names_involved': 126, 'n_distinct': 42}, 'feature_range_train': {'min': -1.0, 'max': 1.0, 'frac_features_within_[-1,1]': 1.0}}
+constant features: 0
+data audit passed
+[timing] data_audit: 3.9 s
+random_window        fold 0 Dummy        macroF1=0.0536
+random_window        fold 0 LogReg       macroF1=0.9831
+random_window        fold 0 SVM_RBF      macroF1=0.9785
+random_window        fold 0 RandomForest macroF1=0.9801
+random_window        fold 1 Dummy        macroF1=0.0536
+random_window        fold 1 LogReg       macroF1=0.9912
+random_window        fold 1 SVM_RBF      macroF1=0.9847
+random_window        fold 1 RandomForest macroF1=0.9838
+random_window        fold 2 Dummy        macroF1=0.0535
+random_window        fold 2 LogReg       macroF1=0.9842
+random_window        fold 2 SVM_RBF      macroF1=0.9738
+random_window        fold 2 RandomForest macroF1=0.9768
+random_window        fold 3 Dummy        macroF1=0.0535
+random_window        fold 3 LogReg       macroF1=0.9869
+random_window        fold 3 SVM_RBF      macroF1=0.9811
+random_window        fold 3 RandomForest macroF1=0.9829
+random_window        fold 4 Dummy        macroF1=0.0535
+random_window        fold 4 LogReg       macroF1=0.9837
+random_window        fold 4 SVM_RBF      macroF1=0.9765
+random_window        fold 4 RandomForest macroF1=0.9848
+participant_grouped  fold 0 Dummy        macroF1=0.0522
+participant_grouped  fold 0 LogReg       macroF1=0.9110
+participant_grouped  fold 0 SVM_RBF      macroF1=0.8975
+participant_grouped  fold 0 RandomForest macroF1=0.8790
+participant_grouped  fold 1 Dummy        macroF1=0.0530
+participant_grouped  fold 1 LogReg       macroF1=0.9692
+participant_grouped  fold 1 SVM_RBF      macroF1=0.9509
+participant_grouped  fold 1 RandomForest macroF1=0.9607
+participant_grouped  fold 2 Dummy        macroF1=0.0561
+participant_grouped  fold 2 LogReg       macroF1=0.9350
+participant_grouped  fold 2 SVM_RBF      macroF1=0.9175
+participant_grouped  fold 2 RandomForest macroF1=0.8518
+participant_grouped  fold 3 Dummy        macroF1=0.0534
+participant_grouped  fold 3 LogReg       macroF1=0.8667
+participant_grouped  fold 3 SVM_RBF      macroF1=0.9017
+participant_grouped  fold 3 RandomForest macroF1=0.8959
+participant_grouped  fold 4 Dummy        macroF1=0.0527
+participant_grouped  fold 4 LogReg       macroF1=0.9501
+participant_grouped  fold 4 SVM_RBF      macroF1=0.9501
+participant_grouped  fold 4 RandomForest macroF1=0.9386
+       model  random_macro_f1_mean  random_macro_f1_sd  grouped_macro_f1_mean  grouped_macro_f1_sd  gap_macro_f1  gap_accuracy  gap_balanced_accuracy
+       Dummy                0.0535              0.0001                 0.0535               0.0015        0.0000        0.0001                 0.0000
+      LogReg                0.9858              0.0034                 0.9264               0.0396        0.0594        0.0577                 0.0599
+     SVM_RBF                0.9789              0.0042                 0.9235               0.0257        0.0554        0.0519                 0.0542
+RandomForest                0.9817              0.0033                 0.9052               0.0442        0.0765        0.0724                 0.0750
+[timing] validation_experiments: 297.8 s
+Fitting 5 folds for each of 3 candidates, totalling 15 fits
+[timing] tune_LogReg: 15.2 s
+LogReg: {'clf__C': 10.0} macroF1=0.9270
+Fitting 5 folds for each of 6 candidates, totalling 30 fits
+[timing] tune_SVM_RBF: 123.8 s
+SVM_RBF: {'clf__C': 10.0, 'clf__gamma': 'scale'} macroF1=0.9248
+Fitting 5 folds for each of 12 candidates, totalling 60 fits
+[timing] tune_RandomForest: 7541.6 s
+RandomForest: {'clf__max_features': 'sqrt', 'clf__min_samples_leaf': 4, 'clf__n_estimators': 300} macroF1=0.9077
+selected: LogReg {'C': 10.0, 'solver': 'lbfgs', 'max_iter': 3000}
+[timing] tune_final_model: 7681.9 s
+official test: macroF1=0.9522 acc=0.9528 bal_acc=0.9513
+[timing] final_evaluation: 13.4 s
+              true        predicted  count  pct_of_true_class
+           SITTING         STANDING     56              11.41
+  WALKING_UPSTAIRS          WALKING     27               5.73
+WALKING_DOWNSTAIRS WALKING_UPSTAIRS     20               4.76
+          STANDING          SITTING     16               3.01
+WALKING_DOWNSTAIRS          WALKING      6               1.43
+{'n_errors': 139, 'n_test': 2947, 'static->static': 74, 'dynamic->dynamic': 62, 'static->dynamic': 2, 'dynamic->static': 1}
+[timing] error_analysis: 0.1 s
+figures -> /kaggle/working/results/figures
+[timing] make_figures: 3.9 s
+DONE
+/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+  cells[i][c] = re.sub('\\\\\|', '|', cell)
+/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+[NbConvertApp] Converting notebook __script__.ipynb to html
+[NbConvertApp] Writing 275752 bytes to __results__.html

@@ -1,0 +1,172 @@
+\documentclass{article}
+\usepackage[preprint]{neurips_2026}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\hypersetup{hidelinks}
+
+% This is an ES 678 course paper, not a conference submission.
+\makeatletter
+\renewcommand{\@noticestring}{ES 678 Course Project}
+\makeatother
+
+\input{numbers.tex}
+
+\title{How Validation Strategy Affects Generalization in\\Smartphone-Based Human Activity Recognition}
+
+\author{%
+  [STUDENT NAME] \\
+  Roll Number: [ROLL NUMBER] \\
+  ES 678 \\
+  Indian Institute of Technology Gandhinagar
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Activity-recognition models serve new people but are often validated on randomly split, overlapping windows. On the UCI HAR training partition (21 participants) we compare fixed logistic regression, RBF SVM and random forest models under three 5-fold protocols, each repeated over \Nnseeds{} split seeds: random-window CV, participant-grouped CV, and segment-grouped CV, which keeps exactly reconstructed chains of overlapping windows together. Random-window CV gave higher macro-F1 than participant-grouped CV for every model and seed, by \Ngapmodelmin--\Ngapmodelmax{} on average. Segment-grouped CV fell in between; descriptively, it accounted for \Noverlapsharemin--\Noverlapsharemax\% of the difference, and the remainder is associated with participant separation and other within-participant dependencies. The gap differed between activities. Gravity-feature ablation and permutation showed that these features are predictive but did not identify a mechanism.
+\end{abstract}
+
+\section{Introduction}
+What matters for activity recognition is performance on \emph{unseen participants}. Random window-level cross-validation (CV) puts every participant in both training and validation folds, and since UCI HAR windows overlap by 50\%, a validation window can share half its raw samples with a training window. \citet{saeb2017} showed that record-wise splits overestimate subject-wise accuracy in clinical sensor studies. \citet{dehghani2019} found that $k$-fold CV raised performance over subject CV by about 10\% (16\% with overlapping windows) on 17 subjects, 33 fitness activities and nine body-worn IMUs. \citet{braganca2022} merged three smartphone datasets including UCI HAR (59 subjects): $k$-fold accuracy was 98\% against 85.37\% under leave-one-subject-out validation, with SHAP used to inspect features. \citet{rehman2024} found 89\% vs.\ 76\% (random forest) on PAMAP2. We claim no new phenomenon; we audit the UCI HAR training split, using exactly reconstructed overlap chains to separate direct window overlap from other dependencies: (RQ1) how large and stable is random-window optimism; (RQ2) where does segment-grouped CV fall; (RQ3) which activities carry the gap, and what do gravity-feature diagnostics support?
+
+\section{Data and Preparation}
+UCI HAR \citep{anguita2013,uci_har} (CC BY 4.0) has 10,299 windows from 30 volunteers who wore a smartphone on the waist and performed six scripted activities. Signals at 50\,Hz were cut into 2.56\,s windows (128 samples, 50\% overlap) described by 561 engineered features. The official split has 7,352 training windows from 21 participants and 2,947 test windows from nine others. An audit confirms row alignment of all files, disjoint train/test participants, and no missing, infinite, constant or duplicate values. Participant IDs only define folds. Classes are near balanced (largest: \Nmajlabel, \Nmajshare\%). LR and SVM standardise features in a scikit-learn pipeline \citep{sklearn} fitted per training fold.
+
+\section{Methods and Evaluation Design}
+\textbf{Models.} A majority-class baseline, logistic regression (LR), an RBF SVM and a random forest (RF), with configurations fixed in advance for the protocol comparison: LR $C{=}1$; SVM $C{=}1$, $\gamma{=}$\texttt{scale}; RF 400 trees, $\sqrt{561}$ features per split, leaf size 1.
+
+\textbf{Validation protocols.} All use the 7,352 training windows, five folds and split seeds 42--51. \emph{Random-window CV} (\texttt{StratifiedKFold}) lets participants and overlapping neighbours appear on both sides. \emph{Participant-grouped CV} (\texttt{StratifiedGroupKFold}, participant groups) keeps each person in one fold of \Ngrpvalsubjmin--\Ngrpvalsubjmax{} people. \emph{Segment-grouped CV} uses the same splitter with segment groups. For \Nnlinks{} of \Nnpairs{} consecutive rows of the raw \texttt{Inertial Signals}, the last 64 samples of one window equal the first 64 of the next exactly (tolerance 0) on all nine channels. All matches lie within one participant and activity, none is non-adjacent, and maximal chains form \Nnseg{} segments (median \Nseglenmed{} windows; \Nnsingleseg{} single-window segment). Every fold is checked for disjoint groups and all six classes. In random-window folds \NoverlapR\% of validation windows have an overlapping neighbour in training; segment grouping removes all shared samples, yet \NsaS\% of its validation windows still have same-participant, same-activity training windows.
+
+\textbf{Metrics and variability.} Macro-F1 (primary) weights activities equally; accuracy and balanced accuracy (BA, mean per-class recall) are supplementary. For each seed we pool the five folds' out-of-fold predictions and compute each metric once. The \emph{across-seed SD} of these ten values reflects the fold assignment; the \emph{within-seed fold SD} (over one seed's five validation folds, averaged over seeds) reflects variation between held-out groups. The \emph{gap} is random-window minus participant-grouped macro-F1, paired by seed. Seeds reuse the same 21 people, so neither SD is a confidence interval.
+
+\textbf{Gravity diagnostics.} The gravity family is the \Nngrav{} features whose names contain ``gravity'' (\Nntgrav{} \texttt{tGravityAcc}, \Nntgravmag{} \texttt{tGravityAccMag}, all \Nnangle{} \texttt{angle}). \emph{Ablation} retrains the fixed models on the other \Nnkeep{} features with the same folds and seeds. \emph{Joint permutation} shuffles the rows of the whole block inside each held-out fold of the fitted models (seed 42, \Nnperm{} permutations, all three models).
+
+\textbf{Model selection.} A separate grid search used participant-grouped CV (seed 42) and macro-F1: LR $C\in\{0.01,\dots,100\}$; SVM $C\in\{0.1,\dots,1000\}\times\gamma\in\{10^{-4},5{\cdot}10^{-4},\texttt{scale},0.005,0.01\}$ (widened once after a corner peak); RF trees $\in\{300,500\}$, features $\in\{\sqrt{d},0.5d\}$, leaf $\in\{1,2,4\}$, plus one extension (\S\ref{sec:select}).
+
+\section{Results and Validation-Optimism Analysis}
+\begin{table}[t]
+\centering
+\caption{Fixed configurations on the training partition: means over \Nnseeds{} split seeds of pooled out-of-fold scores; s = across-seed SD, f = within-seed fold SD of macro-F1. Differences in the text use unrounded values (may differ by 0.001).}
+\label{tab:main}
+\footnotesize
+\setlength{\tabcolsep}{2.25pt}
+\begin{tabular}{l ccccc ccccc ccccc}
+\toprule
+& \multicolumn{5}{c}{Random-window CV} & \multicolumn{5}{c}{Segment-grouped CV} & \multicolumn{5}{c}{Participant-grouped CV} \\
+\cmidrule(lr){2-6}\cmidrule(lr){7-11}\cmidrule(lr){12-16}
+Model & Macro-F1 & s & f & Acc. & BA & Macro-F1 & s & f & Acc. & BA & Macro-F1 & s & f & Acc. & BA \\
+\midrule
+Majority & \NmfDummyR & \NmfsdzDummyR & \NfsdzDummyR & \NaccDummyR & \NbaDummyR & \NmfDummyS & \NmfsdzDummyS & \NfsdzDummyS & \NaccDummyS & \NbaDummyS & \NmfDummyP & \NmfsdzDummyP & \NfsdzDummyP & \NaccDummyP & \NbaDummyP \\
+LR & \NmfLRR & \NmfsdzLRR & \NfsdzLRR & \NaccLRR & \NbaLRR & \NmfLRS & \NmfsdzLRS & \NfsdzLRS & \NaccLRS & \NbaLRS & \NmfLRP & \NmfsdzLRP & \NfsdzLRP & \NaccLRP & \NbaLRP \\
+RBF SVM & \NmfSVMR & \NmfsdzSVMR & \NfsdzSVMR & \NaccSVMR & \NbaSVMR & \NmfSVMS & \NmfsdzSVMS & \NfsdzSVMS & \NaccSVMS & \NbaSVMS & \NmfSVMP & \NmfsdzSVMP & \NfsdzSVMP & \NaccSVMP & \NbaSVMP \\
+RF & \NmfRFR & \NmfsdzRFR & \NfsdzRFR & \NaccRFR & \NbaRFR & \NmfRFS & \NmfsdzRFS & \NfsdzRFS & \NaccRFS & \NbaRFS & \NmfRFP & \NmfsdzRFP & \NfsdzRFP & \NaccRFP & \NbaRFP \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Validation-protocol comparison (RQ1--RQ2)}
+\textbf{Size and stability.} Random-window CV beat participant-grouped CV for all models and seeds (Table~\ref{tab:main}); accuracy and BA agree. The paired gap is \NgapLR{} for LR (per-seed range \NgapminLR--\NgapmaxLR), \NgapSVM{} for the SVM (\NgapminSVM--\NgapmaxSVM) and \NgapRF{} for RF (\NgapminRF--\NgapmaxRF). The across-seed SD is at most \NseedsdPmax, so no single split drives the result, but held-out groups differ much more: participant-grouped folds have a within-seed fold SD of \NfsdPmin--\NfsdPmax, against at most \NfsdRmax{} for random-window folds. Random-window CV thus overstates performance on new people and its stability.
+
+\textbf{What segment grouping removes.} Segment-grouped CV lies in between for every model. Keeping overlap chains together lowers macro-F1 by \NgapRSLR{} (LR), \NgapRSSVM{} (SVM) and \NgapRSRF{} (RF); separating participants lowers it by a further \NgapSPLR, \NgapSPSVM{} and \NgapSPRF. As a descriptive, protocol-based decomposition, segment grouping accounts for \Noverlapsharemin--\Noverlapsharemax\% of the mean gap (\Noverlapshareseedmin--\Noverlapshareseedmax\% across seeds). This is not a causal attribution: segment grouping removes only direct sample overlap, and most of its validation windows keep same-participant, same-activity (usually same-session) training windows, so the remainder is associated with participant separation \emph{together with} session, temporal-proximity and fold-composition effects.
+
+\textbf{Model differences and the baseline.} LR had the best grouped macro-F1 in \NwinsLR{} of \Nnseeds{} seeds, and RF the largest gap in \Nrfgaplargest{} seeds (\Nrfexcess{} above the next on average). Both are small relative to the fold SD. The majority baseline predicts one class per fold, so five of six classes get F1\,=\,0: macro-F1 is \NmfDummyR{} although accuracy equals the laying share (\NaccDummyR). Laying accounts for \Nmajshare\% of training windows and standing for \Nstandshare\%, so under segment grouping the training-fold majority is not always laying.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/per_class_drop_ablation.pdf}
+\caption{Per-class F1 gap, random-window minus participant-grouped CV, with all features (filled) and without the \Nngrav{} gravity features (open). Markers: mean over \Nnseeds{} seeds; lines: min--max over seeds.}
+\label{fig:ablation}
+\end{figure}
+
+\subsection{Activity-wise and feature diagnostics (RQ3)}
+The gap is not uniform across activities (Fig.~\ref{fig:ablation}). Among moving activities, walking upstairs has the largest gap (LR \NdropLRUpstairs, SVM \NdropSVMUpstairs, RF \NdropRFUpstairs); sitting and standing have gaps of \NdropSVMStand--\NdropRFSit, while laying barely changes (at most \NdropLRLay).
+Removing the gravity family lowered grouped macro-F1 for every model (LR \NablLRMacroPfull{}\,$\to$\,\NablLRMacroPng, SVM \NablSVMMacroPfull{}\,$\to$\,\NablSVMMacroPng, RF \NablRFMacroPfull{}\,$\to$\,\NablRFMacroPng), so these features are predictive. The overall gap did not consistently shrink (LR \NablLRMacrofull{}\,$\to$\,\NablLRMacrong, SVM \NablSVMMacrofull{}\,$\to$\,\NablSVMMacrong, RF \NablRFMacrofull{}\,$\to$\,\NablRFMacrong), and class gaps moved in different directions (e.g.\ sitting narrowed for LR and RF but widened for the SVM; Fig.~\ref{fig:ablation}). Jointly permuting the block in held-out grouped folds lowered macro-F1 from \NpermLRbase{} to \NpermLR{} (LR), \NpermSVMbase{} to \NpermSVM{} (SVM) and \NpermRFbase{} to \NpermRF{} (RF). The models are sensitive to disrupting the block, but permutation creates unrealistic inputs and is not a causal importance measure; neither shows that they encode identity, body geometry or phone orientation.
+
+\subsection{Model selection and supplementary test-partition result}
+\label{sec:select}
+The best grouped-CV scores were \NtuneLR{} for LR ($C{=}\NtuneLRC$), \NtuneSVM{} for the SVM ($C{=}\NtuneSVMC$, $\gamma{=}\NtuneSVMgamma$, inside the grid) and \NtuneRF{} for RF. The RF's first grid peaked at the leaf-size edge (\NtuneRFone, leaf \NtuneRFoneleaf); one bounded extension (\NtuneRFn{} settings in all, adding $\log_2 d$ features and leaves up to 16) moved the best to \NtuneRFtrees{} trees, \NtuneRFmf{} features, leaf \NtuneRFleaf. This is still at a grid edge, so the RF result is provisional; we did not extend again. The \Nselmodel{} was selected (\Nselcv; fold SD \Nselcvsd{} over the five folds of this seed-42 tuning run, a different statistic from the fixed-SVM fold SD of \NfsdSVMP{} in Table~\ref{tab:main}). Its margin over LR (\Nselmargin) is far below either fold SD: a narrow numerical preference, not evidence of superiority. Table~\ref{tab:main}, where LR led, compares \emph{fixed} rather than tuned configurations, so the two do not conflict.
+
+
+\begin{figure}[t]
+\centering
+\begin{minipage}[c]{0.57\linewidth}\centering\includegraphics{figures/test_confusion_matrix.pdf}\end{minipage}\hfill
+\begin{minipage}[c]{0.41\linewidth}\centering\footnotesize\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{lccc}
+\toprule
+Activity & Precision & Recall & F1 \\
+\midrule
+Walk & \NtestprecWalk & \NtestrecWalk & \NtestfoneWalk \\
+Upstairs & \NtestprecUpstairs & \NtestrecUpstairs & \NtestfoneUpstairs \\
+Downstairs & \NtestprecDownstairs & \NtestrecDownstairs & \NtestfoneDownstairs \\
+Sit & \NtestprecSit & \NtestrecSit & \NtestfoneSit \\
+Stand & \NtestprecStand & \NtestrecStand & \NtestfoneStand \\
+Lay & \NtestprecLay & \NtestrecLay & \NtestfoneLay \\
+\midrule
+\multicolumn{4}{l}{Macro-F1 \Ntestf, accuracy \Ntestacc, BA \Ntestbal} \\
+\bottomrule
+\end{tabular}\end{minipage}
+\caption{Supplementary error analysis on the previously accessed official test partition (\Ntesttotal{} windows, nine participants): counts, row-normalized \%, per-class metrics. Not an untouched holdout; not used for selection.}
+\label{fig:test}
+\end{figure}
+
+\textbf{Supplementary test-partition result.} The official test partition was scored three times during development (\S\ref{sec:repro}), so it is not an untouched holdout; we report it only as a descriptive error analysis, not used for selection or as an independent estimate. Refitted on all training windows, the SVM reached macro-F1 \Ntestf{} (per-participant \Nsubjmin--\Nsubjmax). Sitting predicted as standing was the top error (\NconfAn{} of \Nnerr; Fig.~\ref{fig:test}), followed by downstairs predicted as upstairs (\NconfBn). Earlier LR test scores (\Nsmoketestf, \Nrunonetestf) differ from this by less than one grouped fold SD and do not rank the models.
+
+\section{Limitations and Conclusion}
+Grouped folds hold four or five of 21 people, so all spreads are descriptive; activities were scripted, with one waist-worn phone and the supplied features; tuning used one grouped split, without leave-one-subject-out CV. \emph{Conclusion.} On the UCI HAR training partition, random-window CV exceeded participant-grouped macro-F1 by \Ngapmodelmin--\Ngapmodelmax{} on average, in every split and model, and understated fold-to-fold variability. Direct overlap explains part of this; the rest is associated with participant and session dependencies. New-user models should be validated with participant-grouped splits.
+
+\section{Reproducibility, Test-Set Access and AI Use}
+\label{sec:repro}
+\textbf{Code:} [REPOSITORY URL]. \texttt{scripts/run\_all.sh} runs all development steps on training data only; \texttt{scripts/run\_final\_test.sh} is a separate, guarded test stage. Development ran on Kaggle CPU kernels (\Nncpu{} vCPUs, Python \Npyver, scikit-learn \Nsklearn); the test stage ran locally (Python \Npyvertest, same scikit-learn).
+\textbf{Test-set access.} The official test partition has been scored three times: a local pipeline smoke test (LR, $C{=}\NsmokeC$; macro-F1 \Nsmoketestf), the first full run (LR, $C{=}\NrunoneC$; \Nrunonetestf; first draft), and the \Nselmodel{} above. In between we added segment-grouped CV and the gravity diagnostics and widened the SVM grid, and the selection changed from LR to SVM; AI critiques and the grid-boundary rule prompted these changes, but as earlier scores had been seen, independence cannot be demonstrated. Code hashes document provenance but do not restore a blind holdout. The later RF extension used training data only; the test partition was not scored again.
+\textbf{AI use:} Claude Code (Anthropic, Claude Opus 5.5) wrote the code, ran the experiments, made the figures, and drafted and revised this paper from the student's brief and revision notes, which drew on AI critiques of earlier drafts ([STUDENT: name these AI tools]); these were AI feedback, not peer review. [STUDENT: state truthfully what you inspected, reran or rewrote yourself.]
+
+{\footnotesize\setlength{\bibsep}{1pt}
+\begin{thebibliography}{7}
+\bibitem[Anguita et~al.(2013)]{anguita2013}
+D.~Anguita, A.~Ghio, L.~Oneto, X.~Parra, and J.~L. Reyes-Ortiz.
+\newblock A public domain dataset for human activity recognition using smartphones.
+\newblock In \emph{Proc.\ ESANN}, pages 437--442, 2013.
+
+\bibitem[Bragan{\c{c}}a et~al.(2022)]{braganca2022}
+H.~Bragan{\c{c}}a, J.~G. Colonna, H.~A.~B.~F. Oliveira, and E.~Souto.
+\newblock How validation methodology influences human activity recognition mobile systems.
+\newblock \emph{Sensors}, 22(6):2360, 2022. doi:\nolinkurl{10.3390/s22062360}.
+
+\bibitem[Dehghani et~al.(2019)]{dehghani2019}
+A.~Dehghani, T.~Glatard, and E.~Shihab.
+\newblock Subject cross validation in human activity recognition.
+\newblock arXiv:1904.02666, 2019.
+
+\bibitem[Pedregosa et~al.(2011)]{sklearn}
+F.~Pedregosa, G.~Varoquaux, A.~Gramfort, V.~Michel, B.~Thirion, et~al.
+\newblock Scikit-learn: Machine learning in {P}ython.
+\newblock \emph{Journal of Machine Learning Research}, 12:2825--2830, 2011.
+
+\bibitem[Rehman et~al.(2024)]{rehman2024}
+S.~U. Rehman, A.~Ali, A.~M. Khan, and C.~Okpala.
+\newblock Human activity recognition: A comparative study of validation methods and impact of feature extraction in wearable sensors.
+\newblock \emph{Algorithms}, 17(12):556, 2024. doi:\nolinkurl{10.3390/a17120556}.
+
+\bibitem[Reyes-Ortiz et~al.(2013)]{uci_har}
+J.~Reyes-Ortiz, D.~Anguita, A.~Ghio, L.~Oneto, and X.~Parra.
+\newblock Human activity recognition using smartphones.
+\newblock UCI Machine Learning Repository, 2013. doi:\nolinkurl{10.24432/C54S4K}.
+
+\bibitem[Saeb et~al.(2017)]{saeb2017}
+S.~Saeb, L.~Lonini, A.~Jayaraman, D.~C. Mohr, and K.~P. Kording.
+\newblock The need to approximate the use-case in clinical machine learning.
+\newblock \emph{GigaScience}, 6(5):gix019, 2017. doi:\nolinkurl{10.1093/gigascience/gix019}.
+\end{thebibliography}
+}
+
+\end{document}

@@ -1,0 +1,50 @@
+{
+  "feature_set": "full",
+  "n_features": 561,
+  "dropped": [],
+  "models": [
+    "Dummy",
+    "LogReg",
+    "SVM_RBF",
+    "RandomForest"
+  ],
+  "fixed_configs": {
+    "Dummy": {
+      "strategy": "most_frequent"
+    },
+    "LogReg": {
+      "C": 1.0,
+      "solver": "lbfgs",
+      "max_iter": 3000
+    },
+    "SVM_RBF": {
+      "kernel": "rbf",
+      "C": 1.0,
+      "gamma": "scale"
+    },
+    "RandomForest": {
+      "n_estimators": 400,
+      "max_features": "sqrt",
+      "min_samples_leaf": 1,
+      "random_state": 42,
+      "n_jobs": 1
+    }
+  },
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51
+  ],
+  "strategies": [
+    "random_window",
+    "segment_grouped",
+    "participant_grouped"
+  ]
+}

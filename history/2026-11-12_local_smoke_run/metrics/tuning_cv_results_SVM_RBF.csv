@@ -1,0 +1,2 @@
+mean_fit_time,std_fit_time,mean_score_time,std_score_time,params,split0_test_score,split1_test_score,split2_test_score,split3_test_score,split4_test_score,mean_test_score,std_test_score,rank_test_score
+5.259627151489258,0.38175396715957305,4.573861598968506,0.6023786982132806,"{'clf__C': 1.0, 'clf__gamma': 'scale'}",0.8975304395742908,0.9508724484294019,0.9174820890828134,0.901710117580386,0.9500971331669089,0.9235384455667601,0.022987315335997342,1

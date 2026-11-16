@@ -1,0 +1,22 @@
+kaggle_run: /usr/bin/python3 -u kaggle_entry.py tune_rf2
+downloading https://archive.ics.uci.edu/static/public/240/human+activity+recognition+using+smartphones.zip
+extracted to /tmp/har_data/UCI HAR Dataset
+..........                                                               [100%]
+10 passed in 3.91s
+{'shapes': {'X_train': [7352, 561], 'X_test': [2947, 561], 'y_train': 7352, 'y_test': 2947, 'subject_train': 7352, 'subject_test': 2947}, 'n_train_subjects': 21, 'n_test_subjects': 9, 'missing_values': {'train': 0, 'test': 0}, 'infinite_values': {'train': 0, 'test': 0}, 'duplicate_rows': {'train': 0, 'test': 0, 'train_vs_test': 0}, 'duplicate_feature_names': {'n_names_involved': 126, 'n_distinct': 42}, 'feature_range_train': {'min': -1.0, 'max': 1.0, 'frac_features_within_[-1,1]': 1.0, 'feature_sd_min': 0.040810524573263486, 'feature_sd_max': 0.7517328950472323, 'feature_mean_min': -0.9840589394636834, 'feature_mean_max': 0.8304335499895811}}
+constant features: 0
+data audit passed
+[timing] data_audit: 2.6 s
+{'tolerance': 0.0, 'n_windows': 7352, 'n_consecutive_pairs': 7351, 'n_overlap_links': 6752, 'n_links_within_same_subject_and_activity': 6752, 'n_consecutive_pairs_same_subject_and_activity': 7072, 'n_non_adjacent_matches': 0, 'n_segments': 600, 'segment_length': {'min': 1, 'median': 12.0, 'max': 29, 'mean': 12.253333333333334}, 'segments_per_subject_activity': {'min': 4, 'median': 4.0, 'max': 8}}
+[timing] overlap_audit: 2.4 s
+Fitting 5 folds for each of 14 candidates, totalling 70 fits
+[timing] tune_RandomForest_round2: 492.3 s
+RandomForest_round2: {'clf__max_features': 'log2', 'clf__min_samples_leaf': 1, 'clf__n_estimators': 500} macroF1=0.9256
+[timing] tune_final_model: 493.1 s
+DONE
+/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+  cells[i][c] = re.sub('\\\\\|', '|', cell)
+/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+[NbConvertApp] Converting notebook __script__.ipynb to html
+[NbConvertApp] Writing 275809 bytes to __results__.html

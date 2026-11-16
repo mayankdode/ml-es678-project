@@ -1,0 +1,39 @@
+[{"stream_name":"stdout","time":1.2822568030000001,"data":"kaggle_run: /usr/bin/python3 -u kaggle_entry.py ablation\n"}
+,{"stream_name":"stdout","time":7.243197081,"data":"downloading https://archive.ics.uci.edu/static/public/240/human+activity+recognition+using+smartphones.zip\n"}
+,{"stream_name":"stdout","time":10.935657485,"data":"extracted to /tmp/har_data/UCI HAR Dataset\n"}
+,{"stream_name":"stdout","time":22.028228861,"data":"..........                                                               [100%]\n"}
+,{"stream_name":"stdout","time":22.028266867,"data":"10 passed in 6.17s\n"}
+,{"stream_name":"stdout","time":27.83533891,"data":"{'shapes': {'X_train': [7352, 561], 'X_test': [2947, 561], 'y_train': 7352, 'y_test': 2947, 'subject_train': 7352, 'subject_test': 2947}, 'n_train_subjects': 21, 'n_test_subjects': 9, 'missing_values': {'train': 0, 'test': 0}, 'infinite_values': {'train': 0, 'test': 0}, 'duplicate_rows': {'train': 0, 'test': 0, 'train_vs_test': 0}, 'duplicate_feature_names': {'n_names_involved': 126, 'n_distinct': 42}, 'feature_range_train': {'min': -1.0, 'max': 1.0, 'frac_features_within_[-1,1]': 1.0, 'feature_sd_min': 0.040810524573263486, 'feature_sd_max': 0.7517328950472323, 'feature_mean_min': -0.9840589394636834, 'feature_mean_max': 0.8304335499895811}}\n"}
+,{"stream_name":"stdout","time":27.835399359,"data":"constant features: 0\n"}
+,{"stream_name":"stdout","time":27.835407014,"data":"data audit passed\n"}
+,{"stream_name":"stdout","time":27.835411684,"data":"[timing] data_audit: 3.9 s\n"}
+,{"stream_name":"stdout","time":33.534992287,"data":"{'tolerance': 0.0, 'n_windows': 7352, 'n_consecutive_pairs': 7351, 'n_overlap_links': 6752, 'n_links_within_same_subject_and_activity': 6752, 'n_consecutive_pairs_same_subject_and_activity': 7072, 'n_non_adjacent_matches': 0, 'n_segments': 600, 'segment_length': {'min': 1, 'median': 12.0, 'max': 29, 'mean': 12.253333333333334}, 'segments_per_subject_activity': {'min': 4, 'median': 4.0, 'max': 8}}\n"}
+,{"stream_name":"stdout","time":33.535028641,"data":"[timing] overlap_audit: 4.0 s\n"}
+,{"stream_name":"stderr","time":40.032404994,"data":"[Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.\n"}
+,{"stream_name":"stderr","time":137.246892619,"data":"[Parallel(n_jobs=-1)]: Done  10 tasks      | elapsed:  1.6min\n"}
+,{"stream_name":"stderr","time":558.873081417,"data":"[Parallel(n_jobs=-1)]: Done  64 tasks      | elapsed:  8.6min\n"}
+,{"stream_name":"stderr","time":1328.96088135,"data":"[Parallel(n_jobs=-1)]: Done 154 tasks      | elapsed: 21.5min\n"}
+,{"stream_name":"stderr","time":2367.853834042,"data":"[Parallel(n_jobs=-1)]: Done 280 tasks      | elapsed: 38.8min\n"}
+,{"stream_name":"stderr","time":3729.816454827,"data":"[Parallel(n_jobs=-1)]: Done 442 tasks      | elapsed: 61.5min\n"}
+,{"stream_name":"stderr","time":3838.676465492,"data":"[Parallel(n_jobs=-1)]: Done 450 out of 450 | elapsed: 63.3min finished\n"}
+,{"stream_name":"stdout","time":3852.695034557,"data":"[no_gravity] repeat-level OOF macro-F1 across seeds\n"}
+,{"stream_name":"stdout","time":3852.695076879,"data":"                                    mean     std     min     max\n"}
+,{"stream_name":"stdout","time":3852.695083882,"data":"model        strategy                                           \n"}
+,{"stream_name":"stdout","time":3852.69508901,"data":"LogReg       participant_grouped  0.8986  0.0036  0.8931  0.9065\n"}
+,{"stream_name":"stdout","time":3852.695094368,"data":"             random_window        0.9544  0.0011  0.9534  0.9563\n"}
+,{"stream_name":"stdout","time":3852.695097654,"data":"             segment_grouped      0.9391  0.0019  0.9369  0.9423\n"}
+,{"stream_name":"stdout","time":3852.69510075,"data":"RandomForest participant_grouped  0.8781  0.0038  0.8737  0.8848\n"}
+,{"stream_name":"stdout","time":3852.695119368,"data":"             random_window        0.9450  0.0011  0.9431  0.9466\n"}
+,{"stream_name":"stdout","time":3852.695122034,"data":"             segment_grouped      0.9151  0.0037  0.9064  0.9182\n"}
+,{"stream_name":"stdout","time":3852.695124389,"data":"SVM_RBF      participant_grouped  0.8719  0.0048  0.8643  0.8784\n"}
+,{"stream_name":"stdout","time":3852.695126975,"data":"             random_window        0.9410  0.0007  0.9400  0.9420\n"}
+,{"stream_name":"stdout","time":3852.695129325,"data":"             segment_grouped      0.9214  0.0019  0.9180  0.9240\n"}
+,{"stream_name":"stdout","time":3852.717582028,"data":"[timing] repeated_validation: 3817.5 s\n"}
+,{"stream_name":"stdout","time":3855.556481998,"data":"DONE\n"}
+,{"stream_name":"stderr","time":3858.700880379,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":3858.700927011,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":3859.234841428,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":3859.234876857,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":3860.358544028,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":3862.0560251,"data":"[NbConvertApp] Writing 275809 bytes to __results__.html\n"}
+]

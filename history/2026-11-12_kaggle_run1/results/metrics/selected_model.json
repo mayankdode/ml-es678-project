@@ -1,0 +1,21 @@
+{
+  "selected_model": "LogReg",
+  "selected_params": {
+    "C": 10.0,
+    "solver": "lbfgs",
+    "max_iter": 3000
+  },
+  "grouped_cv_macro_f1_mean": 0.9270428890906857,
+  "grouped_cv_macro_f1_sd": 0.03713269814778102,
+  "cv": "StratifiedGroupKFold(n_splits=5, shuffle=True, random_state=42)",
+  "scoring": "f1_macro",
+  "labels": [
+    "WALKING",
+    "WALKING_UPSTAIRS",
+    "WALKING_DOWNSTAIRS",
+    "SITTING",
+    "STANDING",
+    "LAYING"
+  ],
+  "note": "Selection used participant-grouped CV on the official training partition only. This CV score is optimistically biased by selection; the official test set is the final evaluation."
+}

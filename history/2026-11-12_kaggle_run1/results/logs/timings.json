@@ -1,0 +1,11 @@
+{
+  "data_audit": 3.9,
+  "validation_experiments": 297.8,
+  "tune_LogReg": 15.2,
+  "tune_SVM_RBF": 123.8,
+  "tune_RandomForest": 7541.6,
+  "tune_final_model": 7681.9,
+  "final_evaluation": 13.4,
+  "error_analysis": 0.1,
+  "make_figures": 3.3
+}

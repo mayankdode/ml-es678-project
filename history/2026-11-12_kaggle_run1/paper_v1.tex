@@ -1,0 +1,157 @@
+\documentclass{article}
+\usepackage[preprint]{neurips_2026}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\hypersetup{hidelinks}
+
+% This is an ES 678 course paper, not a conference submission.
+\makeatletter
+\renewcommand{\@noticestring}{ES 678 Course Project}
+\makeatother
+
+\input{numbers.tex}
+
+\title{How Validation Strategy Affects Generalization in\\Smartphone-Based Human Activity Recognition}
+
+\author{%
+  [STUDENT NAME] \\
+  Roll Number: [ROLL NUMBER] \\
+  ES 678 \\
+  Indian Institute of Technology Gandhinagar
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A model that recognises activities from smartphone data must work for new users. But many studies test such models with a random split of data windows, which puts the same person in both the training data and the validation data. We used the UCI smartphone activity dataset: 10,299 windows from 30 participants, with six activities and 561 features per window. We tested logistic regression, an RBF support vector machine, a random forest and a majority-class baseline. We compared random-window 5-fold cross-validation (CV) with 5-fold CV that keeps all windows of a participant in one fold. Random-window CV gave a higher macro-F1 for all three models, by \Ngapmin{} to \Ngapmax{}. Grouped CV scores also varied about ten times more between folds. On nine new participants, the selected model (logistic regression) got a macro-F1 of \Ntestf{}. Most errors were sitting versus standing, and stairs versus walking.
+\end{abstract}
+
+\section{Problem and Motivation}
+Our task is to identify a person's activity from a short window of smartphone sensor data. Each window is 2.56\,s long and has 561 features. The activity is one of six classes: walking, walking upstairs, walking downstairs, sitting, standing and laying.
+
+In real use, the model must work for a new person, so a fair test must use people that the model never saw. A random split of windows does not do this. It puts windows from the same person into both the training folds and the validation fold. The model can then get credit for recognising a known person, not the activity. \citet{saeb2017} described this problem for clinical prediction from sensor data. We use the participant ID only to make the splits, never as a feature. We ask three questions about this dataset. (1) How much does random-window validation change the macro-F1 estimate, compared with validation on unseen participants? (2) Is the change the same for different types of model? (3) Which activities change the most? Our results apply only to this dataset, these models and these two validation methods.
+
+\section{Data and Preparation}
+The data are from the UCI Machine Learning Repository \citep{uci_har} (CC BY 4.0 license), and \citet{anguita2013} collected them. Thirty volunteers wore a smartphone on the waist. The phone recorded accelerometer and gyroscope signals at 50\,Hz. The authors cut the signals into 2.56\,s windows (128 readings, 50\% overlap) and calculated 561 features for each window.
+
+The dataset has an official split. The training set has 7,352 windows from 21 participants. The test set has 2,947 windows from 9 other participants. Our code checks the file sizes, the row alignment, the six labels, and that no participant is in both sets. We found no missing values, infinite values, constant features or duplicate rows. \Ndupnames{} feature names occur more than once, so we added the column number to each name. We removed no rows. Each activity has 13--19\% of the windows, so the classes are almost balanced. The features are already scaled to $[-1,1]$. For LR and the SVM, we still standardise them in a scikit-learn pipeline that we fit on the training folds only.
+
+\section{Methods}
+Let $\mathbf{x}\in\mathbb{R}^{561}$ be the features of one window, and $y\in\{1,\dots,K\}$, $K=6$, its activity, and $d=561$.
+\textbf{Baseline.} This model always predicts the most common activity in the training data.
+\textbf{Logistic regression (LR).} LR gives each activity $k$ a linear score and changes the scores into probabilities: $p(y=k\mid\mathbf{x})=\exp(\mathbf{w}_k^\top\mathbf{x}+b_k)/\sum_{j}\exp(\mathbf{w}_j^\top\mathbf{x}+b_j)$. It finds the weights that minimise the cross-entropy loss plus a penalty $\tfrac{1}{2C}\sum_k\|\mathbf{w}_k\|^2$. LR tests if linear boundaries are enough.
+\textbf{RBF support vector machine (SVM).} For each pair of classes, the SVM finds the boundary with the largest margin. The kernel $k(\mathbf{x},\mathbf{x}')=\exp(-\gamma\|\mathbf{x}-\mathbf{x}'\|^2)$ lets the boundary curve, and $C$ sets the penalty for points on the wrong side.
+\textbf{Random forest (RF).} RF trains many decision trees, each on a random sample of the training windows. At each split, a tree looks at a random subset of \texttt{max\_features} features. The forest predicts the activity with the most votes. RF can use interactions between features, and it does not need scaled features. For the main comparison, we set the hyperparameters before any experiment: LR ($C{=}1$, lbfgs), SVM ($C{=}1$, $\gamma$=scale) and RF (400 trees, \texttt{max\_features}=$\sqrt{d}$, minimum leaf size 1). We do not claim that these values are the best. We used scikit-learn \citep{sklearn} and random seed 42.
+
+\section{Evaluation Design}
+Both validation methods use only the 7,352 official training windows, with 5 shuffled folds and seed 42. \textbf{(A) Random-window CV} (\texttt{StratifiedKFold}) splits the individual windows and keeps the class balance in each fold. Thus all 21 participants are in every training fold and every validation fold.
+\textbf{(B) Grouped CV} (\texttt{StratifiedGroupKFold}) uses the participant as the group, so all windows of a participant go into one fold. Each validation fold has \Ngrpvalsubjmin{} or \Ngrpvalsubjmax{} participants (\Ngrpnvalmin{}--\Ngrpnvalmax{} windows). Our code checks that no participant is on both sides of a fold, and that each fold has all six activities.
+A and B use the same models and settings, so the split is the only difference.
+\textbf{Metrics.} For each class $k$, $\mathrm{F1}_k=2P_kR_k/(P_k+R_k)$, where $P_k$ is precision and $R_k$ is recall. Our main metric is macro-F1 $=\frac1K\sum_k\mathrm{F1}_k$, which gives the same weight to each activity. If a model never predicts a class, that class gets $\mathrm{F1}=0$. We also report accuracy and balanced accuracy (the mean recall of the classes). The \emph{validation gap} is the mean macro-F1 of A minus the mean macro-F1 of B. We report the mean $\pm$ standard deviation (SD) over the five folds. The SD shows how much the score changes between folds. It is not a confidence interval.
+\textbf{Model selection and final test.} We tuned each model with a small grid search. The search used grouped CV only, with macro-F1 as the score (LR: $C\in\{0.1,1,10\}$; SVM: $C\in\{0.1,1,10\}$, $\gamma\in\{\text{scale},0.01\}$; RF: trees $\in\{300,500\}$, \texttt{max\_features} $\in\{\sqrt d,0.5d\}$, minimum leaf $\in\{1,2,4\}$). We trained the best configuration again on all training windows. Then we evaluated it \emph{once} on the official test set.
+
+\section{Results and Error Analysis}
+\begin{table}[t]
+\centering
+\caption{Macro-F1 for the two validation methods on the official training set (mean $\pm$ SD over 5 folds). Gap = random-window minus grouped.}
+\label{tab:main}
+\small
+\begin{tabular}{lcccc}
+\toprule
+Model (fixed settings) & Random-window CV & Grouped CV & Gap (macro-F1) & Gap (acc.) \\
+\midrule
+Majority class & \NrandDummy{} $\pm$ \NrandsdDummy{} & \NgrpDummy{} $\pm$ \NgrpsdDummy{} & \NgapDummy{} & \NgapaccDummy{} \\
+Logistic Regression & \NrandLR{} $\pm$ \NrandsdLR{} & \NgrpLR{} $\pm$ \NgrpsdLR{} & \NgapLR{} & \NgapaccLR{} \\
+RBF SVM & \NrandSVM{} $\pm$ \NrandsdSVM{} & \NgrpSVM{} $\pm$ \NgrpsdSVM{} & \NgapSVM{} & \NgapaccSVM{} \\
+Random Forest & \NrandRF{} $\pm$ \NrandsdRF{} & \NgrpRF{} $\pm$ \NgrpsdRF{} & \NgapRF{} & \NgapaccRF{} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All three models are much better than the baseline (macro-F1 \NgrpDummy{}; Table~\ref{tab:main}). Random-window CV gave a higher score than grouped CV for every model. The macro-F1 gap is \NgapSVM{} for the SVM, \NgapLR{} for LR and \NgapRF{} for RF. The two methods also differ in how much the scores vary. With random-window CV, the fold SDs are \Nrandsdmax{} or less. With grouped CV, they are \Ngrpsdmin{} to \Ngrpsdmax{}. This is because each grouped fold tests only four or five people, and the score depends on which people they are. The order of the models also changes. With random-window CV, LR and RF are only 0.004 apart. With grouped CV, RF is about 0.02 below both LR and the SVM. Thus random-window CV made every model look better, and it also hid a difference between the models.
+
+Tuning changed the scores very little. The best grouped-CV scores were \NtuneLR{} (LR, $C{=}\NselC$), \NtuneSVM{} (SVM, $C{=}10$, $\gamma$=scale) and \NtuneRF{} (RF). These differences are smaller than the fold SDs, so LR won by only a small margin. On the official test set (9 unseen participants), LR got a macro-F1 of \Ntestf{}, an accuracy of \Ntestacc{} and a balanced accuracy of \Ntestbal{} (Fig.~\ref{fig:test}). The three largest errors are: sitting predicted as standing (\NconfAn{} windows, \NconfApct\% of sitting), walking upstairs predicted as walking (\NconfBn{}, \NconfBpct\%), and walking downstairs predicted as walking upstairs (\NconfCn{}, \NconfCpct\%). Only \Nncross{} errors mix a static activity (sitting, standing, laying) with a moving one (the three walking activities). The other errors stay inside one group (\Nnwithinstatic{} static, \Nnwithindyn{} moving). Thus the model almost never confuses moving with not moving; its problem is similar activities.
+
+\begin{figure}[t]
+\centering
+\begin{minipage}[c]{0.49\linewidth}
+\centering
+\includegraphics[width=\linewidth]{figures/test_confusion_matrix.pdf}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.45\linewidth}
+\centering\small
+\begin{tabular}{lccc}
+\toprule
+Class & Prec. & Rec. & F1 \\
+\midrule
+Walk & \NtestprecWalk & \NtestrecWalk & \NtestfoneWalk \\
+Upstairs & \NtestprecUpstairs & \NtestrecUpstairs & \NtestfoneUpstairs \\
+Downstairs & \NtestprecDownstairs & \NtestrecDownstairs & \NtestfoneDownstairs \\
+Sit & \NtestprecSit & \NtestrecSit & \NtestfoneSit \\
+Stand & \NtestprecStand & \NtestrecStand & \NtestfoneStand \\
+Lay & \NtestprecLay & \NtestrecLay & \NtestfoneLay \\
+\midrule
+\multicolumn{3}{l}{Macro-F1} & \Ntestf \\
+\multicolumn{3}{l}{Accuracy} & \Ntestacc \\
+\multicolumn{3}{l}{Balanced accuracy} & \Ntestbal \\
+\bottomrule
+\end{tabular}
+\end{minipage}
+\caption{The selected model (LR, $C{=}\NselC$) on the official test set (2,947 windows, 9 unseen participants). Left: confusion matrix (window counts; darker cells have a higher row \%). Right: scores for each class.}
+\label{fig:test}
+\end{figure}
+
+\section{Graduate Depth Analysis: How Optimistic Is Random-Window Validation?}
+\textbf{Which activities lose the most?} Fig.~\ref{fig:perclass} shows the F1 of each class. Laying almost does not change (a drop of \NdropLRLay{} or less). For all three models, the three walking activities drop by 0.07 to 0.11. The largest drop is for walking upstairs: \NdropLRUpstairs{} (LR), \NdropSVMUpstairs{} (SVM) and \NdropRFUpstairs{} (RF). For sitting and standing, the models are different. RF drops by about 0.09 (\NdropRFSit, \NdropRFStand), but the SVM drops by only about 0.035 (\NdropSVMSit, \NdropSVMStand). A possible reason is that each person walks and stands in a slightly different way. When windows from a person are in the training data, a model can learn to recognise that person, not only the activity. Random-window CV gives credit for this. The larger gap for RF suggests that RF uses these person-specific patterns more than LR and the SVM do. We did not test this explanation.
+
+\begin{figure}[!htb]
+\centering
+\includegraphics{figures/per_class_f1_by_strategy.pdf}
+\caption{F1 of each class (mean over 5 folds) with random-window CV (blue) and grouped CV (orange).}
+\label{fig:perclass}
+\end{figure}
+
+\textbf{Did grouped CV predict the test score?} For the selected model, grouped CV gave \Nselcv{} $\pm$ \Nselcvsd{}, and the test score was \Ntestf{}. The difference (\Ntestminuscv) is less than one fold SD. Random-window CV gave \NrandLR{} for LR, about 0.03 above the test score, with a fold SD of only \NrandsdLR{}. Thus it looked more precise than it was. The test macro-F1 of each participant is between \Nsubjmin{} (participant \Nsubjminid) and \Nsubjmax{} (median \Nsubjmed). With nine people, this is only descriptive.
+
+\textbf{What we learn beyond the best score.} (1) The size of the gap depends on the model: from \Ngapmin{} to \Ngapmax{} here. (2) Random-window CV makes models look better and can change their order, which matters when we use CV to select a model. (3) Its SD is too small for new users, because its folds share people.
+
+\section{Limitations and Conclusion}
+With 30 participants, grouped folds of four or five people and a test set of nine, our estimates are noisy. The fold SDs and per-participant results are descriptive, and we did no significance tests. The volunteers did six scripted activities in a lab, with one phone at the waist and no transitions, so the results may not apply to other people, phone positions, devices or daily life. We used only the supplied features, not the raw signals. The windows overlap by 50\%, but we could not identify neighbouring windows, so we explain the gap by shared participants only. We measured classification performance only, not clinical value, safety or readiness for real use. It is not a medical tool. \emph{Conclusion.} On this dataset, random-window CV gave macro-F1 scores \Ngapmin{}--\Ngapmax{} higher than grouped CV, and it showed too little variation. Grouped CV gave an estimate (\Nselcv{}) close to the test score on unseen participants (\Ntestf{}). If a model must work for new people, validate it with folds grouped by participant.
+
+\section{Reproducibility and AI-Use Disclosure}
+\textbf{Code:} [REPOSITORY URL]. The command \texttt{bash scripts/run\_all.sh} downloads the official UCI data and runs every step, from the data checks to the figures. \texttt{results/} keeps the folds, fold scores and selected settings; \texttt{src/paper\_numbers.py} writes every number in this paper from them. We did the main run on a Kaggle CPU machine (\Nncpu{} vCPUs, Python \Npyver, scikit-learn \Nsklearn, seed 42). It took \Nrunhours{}\,h, mostly for the RF search. Before the main run, a short pipeline test (20-tree forest, one point per grid) also scored one fixed configuration on the test set. We did not use that score for any decision.
+\textbf{AI use:} Claude Code (Anthropic, model Claude Opus 5.5) wrote the code, ran the experiments, made the figures and wrote the draft of this paper. It followed the student's project brief. [STUDENT: state which code, results and claims you checked yourself before submission.]
+
+\begin{thebibliography}{4}
+\bibitem[Anguita et~al.(2013)]{anguita2013}
+D.~Anguita, A.~Ghio, L.~Oneto, X.~Parra, and J.~L. Reyes-Ortiz.
+\newblock A public domain dataset for human activity recognition using smartphones.
+\newblock In \emph{Proc.\ European Symposium on Artificial Neural Networks (ESANN)}, pages 437--442, 2013.
+
+\bibitem[Pedregosa et~al.(2011)]{sklearn}
+F.~Pedregosa, G.~Varoquaux, A.~Gramfort, V.~Michel, B.~Thirion, et~al.
+\newblock Scikit-learn: Machine learning in {P}ython.
+\newblock \emph{Journal of Machine Learning Research}, 12:2825--2830, 2011.
+
+\bibitem[Reyes-Ortiz et~al.(2013)]{uci_har}
+J.~Reyes-Ortiz, D.~Anguita, A.~Ghio, L.~Oneto, and X.~Parra.
+\newblock Human activity recognition using smartphones.
+\newblock UCI Machine Learning Repository, 2013. \url{https://doi.org/10.24432/C54S4K}.
+
+\bibitem[Saeb et~al.(2017)]{saeb2017}
+S.~Saeb, L.~Lonini, A.~Jayaraman, D.~C. Mohr, and K.~P. Kording.
+\newblock The need to approximate the use-case in clinical machine learning.
+\newblock \emph{GigaScience}, 6(5):1--9, 2017. \url{https://doi.org/10.1093/gigascience/gix019}.
+\end{thebibliography}
+
+\end{document}

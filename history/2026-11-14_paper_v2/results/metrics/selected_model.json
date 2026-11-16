@@ -1,0 +1,24 @@
+{
+  "selected_model": "SVM_RBF",
+  "selected_params": {
+    "kernel": "rbf",
+    "C": 100.0,
+    "gamma": 0.0005
+  },
+  "grouped_cv_macro_f1_mean": 0.9313374113629619,
+  "grouped_cv_macro_f1_sd": 0.025430340807842927,
+  "at_grid_boundary": [],
+  "runner_up": "LogReg",
+  "margin_over_runner_up": 0.004294522272276224,
+  "cv": "StratifiedGroupKFold(n_splits=5, shuffle=True, random_state=42)",
+  "scoring": "f1_macro",
+  "labels": [
+    "WALKING",
+    "WALKING_UPSTAIRS",
+    "WALKING_DOWNSTAIRS",
+    "SITTING",
+    "STANDING",
+    "LAYING"
+  ],
+  "note": "Selection used participant-grouped CV on the official training partition only. This CV score is optimistically biased by selection."
+}

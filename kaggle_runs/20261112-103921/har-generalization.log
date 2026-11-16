@@ -1,0 +1,86 @@
+[{"stream_name":"stdout","time":1.026715665,"data":"kaggle_run: /usr/bin/python3 -u kaggle_entry.py\n"}
+,{"stream_name":"stdout","time":5.755632321,"data":"downloading https://archive.ics.uci.edu/static/public/240/human+activity+recognition+using+smartphones.zip\n"}
+,{"stream_name":"stdout","time":9.392303311,"data":"extracted to /tmp/har_data/UCI HAR Dataset\n"}
+,{"stream_name":"stdout","time":16.605470478,"data":"......                                                                   [100%]\n"}
+,{"stream_name":"stdout","time":16.605502253,"data":"6 passed in 3.20s\n"}
+,{"stream_name":"stdout","time":22.286809982,"data":"{'shapes': {'X_train': [7352, 561], 'X_test': [2947, 561], 'y_train': 7352, 'y_test': 2947, 'subject_train': 7352, 'subject_test': 2947}, 'n_train_subjects': 21, 'n_test_subjects': 9, 'missing_values': {'train': 0, 'test': 0}, 'infinite_values': {'train': 0, 'test': 0}, 'duplicate_rows': {'train': 0, 'test': 0, 'train_vs_test': 0}, 'duplicate_feature_names': {'n_names_involved': 126, 'n_distinct': 42}, 'feature_range_train': {'min': -1.0, 'max': 1.0, 'frac_features_within_[-1,1]': 1.0}}\n"}
+,{"stream_name":"stdout","time":22.286846279,"data":"constant features: 0\n"}
+,{"stream_name":"stdout","time":22.286851296,"data":"data audit passed\n"}
+,{"stream_name":"stdout","time":22.286855719,"data":"[timing] data_audit: 3.9 s\n"}
+,{"stream_name":"stdout","time":25.275715642,"data":"random_window        fold 0 Dummy        macroF1=0.0536\n"}
+,{"stream_name":"stdout","time":31.101502337,"data":"random_window        fold 0 LogReg       macroF1=0.9831\n"}
+,{"stream_name":"stdout","time":34.704618958,"data":"random_window        fold 0 SVM_RBF      macroF1=0.9785\n"}
+,{"stream_name":"stdout","time":55.245778154999996,"data":"random_window        fold 0 RandomForest macroF1=0.9801\n"}
+,{"stream_name":"stdout","time":55.272408231,"data":"random_window        fold 1 Dummy        macroF1=0.0536\n"}
+,{"stream_name":"stdout","time":59.446698809,"data":"random_window        fold 1 LogReg       macroF1=0.9912\n"}
+,{"stream_name":"stdout","time":62.788554891,"data":"random_window        fold 1 SVM_RBF      macroF1=0.9847\n"}
+,{"stream_name":"stdout","time":83.086112976,"data":"random_window        fold 1 RandomForest macroF1=0.9838\n"}
+,{"stream_name":"stdout","time":83.113866899,"data":"random_window        fold 2 Dummy        macroF1=0.0535\n"}
+,{"stream_name":"stdout","time":88.168469339,"data":"random_window        fold 2 LogReg       macroF1=0.9842\n"}
+,{"stream_name":"stdout","time":91.724902416,"data":"random_window        fold 2 SVM_RBF      macroF1=0.9738\n"}
+,{"stream_name":"stdout","time":112.174110018,"data":"random_window        fold 2 RandomForest macroF1=0.9768\n"}
+,{"stream_name":"stdout","time":112.206366674,"data":"random_window        fold 3 Dummy        macroF1=0.0535\n"}
+,{"stream_name":"stdout","time":117.762765329,"data":"random_window        fold 3 LogReg       macroF1=0.9869\n"}
+,{"stream_name":"stdout","time":120.888254574,"data":"random_window        fold 3 SVM_RBF      macroF1=0.9811\n"}
+,{"stream_name":"stdout","time":141.138206702,"data":"random_window        fold 3 RandomForest macroF1=0.9829\n"}
+,{"stream_name":"stdout","time":141.171880888,"data":"random_window        fold 4 Dummy        macroF1=0.0535\n"}
+,{"stream_name":"stdout","time":147.184852388,"data":"random_window        fold 4 LogReg       macroF1=0.9837\n"}
+,{"stream_name":"stdout","time":150.515369472,"data":"random_window        fold 4 SVM_RBF      macroF1=0.9765\n"}
+,{"stream_name":"stdout","time":171.015340644,"data":"random_window        fold 4 RandomForest macroF1=0.9848\n"}
+,{"stream_name":"stdout","time":171.062566227,"data":"participant_grouped  fold 0 Dummy        macroF1=0.0522\n"}
+,{"stream_name":"stdout","time":176.862071717,"data":"participant_grouped  fold 0 LogReg       macroF1=0.9110\n"}
+,{"stream_name":"stdout","time":179.936817505,"data":"participant_grouped  fold 0 SVM_RBF      macroF1=0.8975\n"}
+,{"stream_name":"stdout","time":200.499303139,"data":"participant_grouped  fold 0 RandomForest macroF1=0.8790\n"}
+,{"stream_name":"stdout","time":200.525135263,"data":"participant_grouped  fold 1 Dummy        macroF1=0.0530\n"}
+,{"stream_name":"stdout","time":208.172675123,"data":"participant_grouped  fold 1 LogReg       macroF1=0.9692\n"}
+,{"stream_name":"stdout","time":211.529636444,"data":"participant_grouped  fold 1 SVM_RBF      macroF1=0.9509\n"}
+,{"stream_name":"stdout","time":230.334428227,"data":"participant_grouped  fold 1 RandomForest macroF1=0.9607\n"}
+,{"stream_name":"stdout","time":230.358683905,"data":"participant_grouped  fold 2 Dummy        macroF1=0.0561\n"}
+,{"stream_name":"stdout","time":237.242831624,"data":"participant_grouped  fold 2 LogReg       macroF1=0.9350\n"}
+,{"stream_name":"stdout","time":240.478035437,"data":"participant_grouped  fold 2 SVM_RBF      macroF1=0.9175\n"}
+,{"stream_name":"stdout","time":259.999383926,"data":"participant_grouped  fold 2 RandomForest macroF1=0.8518\n"}
+,{"stream_name":"stdout","time":260.023787361,"data":"participant_grouped  fold 3 Dummy        macroF1=0.0534\n"}
+,{"stream_name":"stdout","time":267.622799825,"data":"participant_grouped  fold 3 LogReg       macroF1=0.8667\n"}
+,{"stream_name":"stdout","time":270.743032157,"data":"participant_grouped  fold 3 SVM_RBF      macroF1=0.9017\n"}
+,{"stream_name":"stdout","time":290.842877119,"data":"participant_grouped  fold 3 RandomForest macroF1=0.8959\n"}
+,{"stream_name":"stdout","time":290.869100183,"data":"participant_grouped  fold 4 Dummy        macroF1=0.0527\n"}
+,{"stream_name":"stdout","time":298.031123011,"data":"participant_grouped  fold 4 LogReg       macroF1=0.9501\n"}
+,{"stream_name":"stdout","time":301.319256644,"data":"participant_grouped  fold 4 SVM_RBF      macroF1=0.9501\n"}
+,{"stream_name":"stdout","time":321.666790935,"data":"participant_grouped  fold 4 RandomForest macroF1=0.9386\n"}
+,{"stream_name":"stdout","time":321.743284121,"data":"       model  random_macro_f1_mean  random_macro_f1_sd  grouped_macro_f1_mean  grouped_macro_f1_sd  gap_macro_f1  gap_accuracy  gap_balanced_accuracy\n"}
+,{"stream_name":"stdout","time":321.743310726,"data":"       Dummy                0.0535              0.0001                 0.0535               0.0015        0.0000        0.0001                 0.0000\n"}
+,{"stream_name":"stdout","time":321.743315763,"data":"      LogReg                0.9858              0.0034                 0.9264               0.0396        0.0594        0.0577                 0.0599\n"}
+,{"stream_name":"stdout","time":321.743320839,"data":"     SVM_RBF                0.9789              0.0042                 0.9235               0.0257        0.0554        0.0519                 0.0542\n"}
+,{"stream_name":"stdout","time":321.743326237,"data":"RandomForest                0.9817              0.0033                 0.9052               0.0442        0.0765        0.0724                 0.0750\n"}
+,{"stream_name":"stdout","time":321.743331333,"data":"[timing] validation_experiments: 297.8 s\n"}
+,{"stream_name":"stdout","time":324.742768113,"data":"Fitting 5 folds for each of 3 candidates, totalling 15 fits\n"}
+,{"stream_name":"stdout","time":339.923967746,"data":"[timing] tune_LogReg: 15.2 s\n"}
+,{"stream_name":"stdout","time":339.930919416,"data":"LogReg: {'clf__C': 10.0} macroF1=0.9270\n"}
+,{"stream_name":"stdout","time":463.684542965,"data":"Fitting 5 folds for each of 6 candidates, totalling 30 fits\n"}
+,{"stream_name":"stdout","time":463.684592583,"data":"[timing] tune_SVM_RBF: 123.8 s\n"}
+,{"stream_name":"stdout","time":463.688316985,"data":"SVM_RBF: {'clf__C': 10.0, 'clf__gamma': 'scale'} macroF1=0.9248\n"}
+,{"stream_name":"stdout","time":8005.323057406,"data":"Fitting 5 folds for each of 12 candidates, totalling 60 fits\n"}
+,{"stream_name":"stdout","time":8005.323291213,"data":"[timing] tune_RandomForest: 7541.6 s\n"}
+,{"stream_name":"stdout","time":8005.329545027,"data":"RandomForest: {'clf__max_features': 'sqrt', 'clf__min_samples_leaf': 4, 'clf__n_estimators': 300} macroF1=0.9077\n"}
+,{"stream_name":"stdout","time":8005.33668517,"data":"selected: LogReg {'C': 10.0, 'solver': 'lbfgs', 'max_iter': 3000}\n"}
+,{"stream_name":"stdout","time":8005.336713976,"data":"[timing] tune_final_model: 7681.9 s\n"}
+,{"stream_name":"stdout","time":8020.771005144,"data":"official test: macroF1=0.9522 acc=0.9528 bal_acc=0.9513\n"}
+,{"stream_name":"stdout","time":8020.771044635,"data":"[timing] final_evaluation: 13.4 s\n"}
+,{"stream_name":"stdout","time":8022.587718124,"data":"              true        predicted  count  pct_of_true_class\n"}
+,{"stream_name":"stdout","time":8022.587753291,"data":"           SITTING         STANDING     56              11.41\n"}
+,{"stream_name":"stdout","time":8022.587760992,"data":"  WALKING_UPSTAIRS          WALKING     27               5.73\n"}
+,{"stream_name":"stdout","time":8022.587767808,"data":"WALKING_DOWNSTAIRS WALKING_UPSTAIRS     20               4.76\n"}
+,{"stream_name":"stdout","time":8022.587774669,"data":"          STANDING          SITTING     16               3.01\n"}
+,{"stream_name":"stdout","time":8022.587781553,"data":"WALKING_DOWNSTAIRS          WALKING      6               1.43\n"}
+,{"stream_name":"stdout","time":8022.587788513,"data":"{'n_errors': 139, 'n_test': 2947, 'static-\u003estatic': 74, 'dynamic-\u003edynamic': 62, 'static-\u003edynamic': 2, 'dynamic-\u003estatic': 1}\n"}
+,{"stream_name":"stdout","time":8022.587796651,"data":"[timing] error_analysis: 0.1 s\n"}
+,{"stream_name":"stdout","time":8029.02922709,"data":"figures -\u003e /kaggle/working/results/figures\n"}
+,{"stream_name":"stdout","time":8029.029269079,"data":"[timing] make_figures: 3.9 s\n"}
+,{"stream_name":"stdout","time":8031.334657039,"data":"DONE\n"}
+,{"stream_name":"stderr","time":8033.854860633,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":8033.8549,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":8034.168942471,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":8034.168986471,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":8035.082006464,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":8036.347602058,"data":"[NbConvertApp] Writing 275752 bytes to __results__.html\n"}
+]
