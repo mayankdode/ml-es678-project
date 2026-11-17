@@ -120,3 +120,6 @@ corner of the grid.
 - Laboratory setting, one waist-worn phone, six scripted activities.
 - Engineered features only.
 - Measures classification performance only; this is not a medical tool.
+
+## AI use
+I used Gemini, ChatGPT and Claude Code to discuss methodological options, explain concepts, assist with coding and debugging, and suggest language edits. I chose the research questions and experimental design, ran and verified the analyses, interpreted the results, and wrote and approved the final paper. I checked AI suggestions against the data, code and cited sources.
