@@ -126,7 +126,7 @@ Grouped folds hold four or five of 21 people, so all spreads are descriptive; ac
 
 \section{Reproducibility, Test-Set Access and AI Use}
 \label{sec:repro}
-\textbf{Code:} \url{https://github.com/mayankdode/es678-ml-project}. \texttt{scripts/run\_all.sh} runs development on training data only; \texttt{scripts/run\_final\_test.sh} is a separate, guarded test stage (Kaggle CPU, \Nncpu{} vCPUs, Python \Npyver, scikit-learn \Nsklearn; test stage local, Python \Npyvertest).
+\textbf{Code:} \url{https://github.com/mayankdode/ml-es678-project}. \texttt{scripts/run\_all.sh} runs development on training data only; \texttt{scripts/run\_final\_test.sh} is a separate, guarded test stage (Kaggle CPU, \Nncpu{} vCPUs, Python \Npyver, scikit-learn \Nsklearn; test stage local, Python \Npyvertest).
 \textbf{Test-set access.} The test partition was scored three times: a smoke test (LR, $C{=}\NsmokeC$; \Nsmoketestf), the first full run (LR, $C{=}\NrunoneC$; \Nrunonetestf), and the \Nselmodel{} above. In between, analyses were added, the SVM grid widened and the selection changed from LR to SVM; as earlier scores had been seen, independence cannot be shown. The later RF extension used training data only.
 \textbf{AI use:} I used Gemini, ChatGPT and Claude Code to discuss methodological options, explain concepts, assist with coding and debugging, and suggest language edits. I chose the research questions and experimental design, ran and verified the analyses, interpreted the results, and wrote and approved the final paper. I checked AI suggestions against the data, code and cited sources.
 
